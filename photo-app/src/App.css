@@ -1,0 +1,179 @@
+
+li {
+  display: inline;
+}
+textarea {
+resize: none;
+}
+
+/******************************************************************
+*
+*   Wine form styling
+*
+******************************************************************/
+
+.windFormContainer {
+
+position: absolute;
+top: 120px;
+left: 300px;
+
+display: flex;
+flex-direction: row;
+width: 900px;
+height: auto;
+
+background-color: #E6DBDA;
+border: solid white;
+}
+
+.wineImgBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  width: 40%;
+  height: auto;
+  text-align: center;
+
+  border: solid 1px white;
+}
+  .wineFormTitle {
+    width: 100%;
+    color: purple;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .largeWineImg {
+    width: 300px;
+    border-radius: 5px;
+  }
+
+  .deleteButton, .createButton {
+    margin-top: 30px;
+    padding: 4px;
+    border: solid 1px #E6DBDA;
+    border-radius: 5px;
+
+    font-size: 18px;
+    font-weight: bold;
+    border: solid 1px lightgray;
+    color: lightslategray;
+  }
+
+
+.wineFormBox {
+    width: 60%;
+    text-align: center;
+
+    border: solid white;  
+    color: purple;
+}
+  
+  .inputContainer {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+
+    width: 100%;
+  }
+
+  
+    /* Column layout */
+    .nameInputBox, .grapesInputBox, .regionInputBox {
+
+      grid-column: 1/3;
+      font-size: 14px;
+      align-self: center;
+    }
+    .yearInputBox, .countryInputBox, .priceInputBox {
+
+      grid-column: 3/5;
+      font-size: 14px;
+      align-self: center;
+    }
+    .descInputBox, .imgPathInputBox {
+
+      grid-column: 1/5;
+      font-size: 14px;
+      align-self: center;
+    }
+
+    /* Row layout */
+    .nameInputBox, .yearInputBox {
+      grid-row: 1;
+      margin: 20px;
+    }
+    .grapesInputBox, .countryInputBox {
+      grid-row: 2;
+    }
+    .regionInputBox, .priceInputBox {
+      grid-row: 3;
+    }
+    .descInputBox {
+      grid-row: 4;
+    }
+    .imgPathInputBox {
+      grid-row: 5;
+    }
+
+      .textInput, .textAreaInput, .imgURLInput {
+        border: solid 1px #E6DBDA;
+        border-radius: 5px;
+        font-size: 14px;
+        padding: 8px;
+      }
+
+
+    .createButtonBox {
+      grid-column: 1/5;
+      grid-row: 6;
+
+      margin: 20px;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+    }
+
+
+/******************************************************************
+*
+*   Wine list styling
+*
+******************************************************************/
+
+.wineListText {
+font-size: 32px;
+font-weight: bold;
+color: lightslategray;
+}
+
+.wineCard {
+display: inline-block;
+width: 250px;
+height: auto;
+
+text-align: center;
+border: solid 1px lightslategray;
+}
+
+.wineName {
+  color: blueviolet;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.wineImg {
+  width: 200px;
+  height: "auto"
+
+}
+
+.wineDetail {
+  color: lightslategray;
+  font-size: 14px;
+  font-weight: bold;
+}
