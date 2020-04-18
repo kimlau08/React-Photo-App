@@ -8,6 +8,6 @@
 # 
 ![wireframe](./wireframes/Edit-Comment.png)
 # 
-![wireframe](./wireframes/Login-Signup.png)
+![wireframe](./wireframes/Login.png)
 # 
  
