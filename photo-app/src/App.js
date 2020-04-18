@@ -3,7 +3,7 @@ import './App.css';
 import WineForm from './components/WineForm';
 import { Switch, Route, Link, BrowserRouter as Router } from "react-router-dom";
 
-import imageStore from './components/ImageStore';
+import ImageDB from './components/ImageDB';
 
 /****************************************************************/
 
@@ -365,7 +365,7 @@ export default class App extends Component {
       wineImagePaths: [],
       wineStrings: [],
 
-      images: imageStore,
+      images: ImageDB,
       photos: photoData,
       users: userData,
       comments: commentData 
