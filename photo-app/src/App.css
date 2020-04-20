@@ -1,10 +1,241 @@
 
-li {
-  display: inline;
+ul {
+  list-style-type:none;
 }
+a:link {
+  text-decoration: none;
+}
+a:active {
+  font-size: 20px;
+  color: cadetblue;
+}
+
 textarea {
-resize: none;
+  resize: none;
 }
+
+
+/******************************************************************
+*   Menu and Logo line
+******************************************************************/
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+border: solid 1px lime;
+}
+  .menuBar {
+    width: 400px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    font-weight: bold;
+    font-style: italic;
+border: solid 1px red;
+  }
+  .currentUserId {
+    width: 100px;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+  }
+
+  .logoLine {
+    text-align: center;
+    font-size: 36px;
+    font-style: italic;
+  }
+
+  
+  
+/******************************************************************
+*   Photo list styling
+******************************************************************/
+
+  
+  .photoCard {
+  display: inline-block;
+  margin-left: 20px;
+  width: 400px;
+  height: auto;
+  
+  text-align: center;
+  }  
+    .photoImg {
+      width: 100%;
+      height: 600px;
+      /* border style assigned based on user like dislike in Javascript code */
+    }
+    
+    .photoDetail, .photoOwner {
+      width: 100%;
+      font-size: 14px;
+      text-align: left;
+
+      font-style: italic;
+      font-size: 18px;
+    }
+
+  
+
+
+/******************************************************************
+*   Comments component
+******************************************************************/
+
+#commentsContainer {
+  position: absolute;
+  top: 100px;
+  left: 500px;
+
+  width: 1000px;
+  height: 900px;
+
+  border: solid 1px lightslategray;
+  background-color: #E6DBDA;
+}
+  .leftPhotoCard {
+    
+    margin-left: 20px;
+    width: 400px;
+    height: auto;
+    
+    text-align: center;
+  }
+
+  .deletePhotoButton {
+    border: solid 1px lightslategray;
+    border-radius: 10px;
+
+    width: 100px;
+    height: 30px;
+
+    font-size: 18px;
+    text-align: center;
+  }
+
+
+
+
+/******************************************************************
+*   Login form
+******************************************************************/
+
+.LoginFormContainer {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+
+  width: 600px;
+  height: 500px;
+  border: solid 1px lightgrey;
+  border-radius: 10px;
+  
+}
+  .loginTitle {
+    grid-column: 2/3;
+    grid-row: 1;
+    align-self: center;
+
+    margin-top: 20px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    text-align: center;
+    width: 100%;
+  }
+  .userIdInput {
+    grid-column: 2/3;
+    grid-row: 2;
+    align-self: center;
+
+    margin-top: 20px;
+  }
+  .passwordInput {
+    grid-column: 2/3;
+    grid-row: 3;
+    align-self: center;
+
+    margin-top: 20px;
+  }
+  #authErrorMsg {
+    grid-column: 2/3;
+    grid-row: 4;
+    align-self: center;
+
+    margin-top: 20px;
+    color: red;
+  }
+
+  .loginButton {
+    grid-column: 2/3;
+    grid-row: 5;
+    align-self: center;
+
+    border: solid 1px lightslategray;
+    border-radius: 10px;
+
+    width: 100px;
+    height: 30px;
+
+    font-size: 18px;
+    text-align: center;
+    margin-left: 60px;
+  }
+  .textInput, .textAreaInput, .imgURLInput {
+    border: solid 1px lightgrey;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 8px;
+  }
+
+
+
+
+/******************************************************************
+*
+*   Wine list styling
+*
+******************************************************************/
+
+.wineListText {
+  font-size: 32px;
+  font-weight: bold;
+  color: lightslategray;
+  }
+  
+  .wineCard {
+  display: inline-block;
+  width: 250px;
+  height: auto;
+  
+  text-align: center;
+  border: solid 1px lightslategray;
+  }
+  
+  .wineName {
+    color: blueviolet;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .wineImg {
+    width: 200px;
+    height: "auto"
+  
+  }
+  
+  .wineDetail {
+    color: lightslategray;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
 
 /******************************************************************
 *
@@ -118,12 +349,12 @@ border: solid white;
       grid-row: 5;
     }
 
-      .textInput, .textAreaInput, .imgURLInput {
+      /* .textInput, .textAreaInput, .imgURLInput {
         border: solid 1px #E6DBDA;
         border-radius: 5px;
         font-size: 14px;
         padding: 8px;
-      }
+      } */
 
 
     .createButtonBox {
@@ -138,42 +369,3 @@ border: solid white;
 
     }
 
-
-/******************************************************************
-*
-*   Wine list styling
-*
-******************************************************************/
-
-.wineListText {
-font-size: 32px;
-font-weight: bold;
-color: lightslategray;
-}
-
-.wineCard {
-display: inline-block;
-width: 250px;
-height: auto;
-
-text-align: center;
-border: solid 1px lightslategray;
-}
-
-.wineName {
-  color: blueviolet;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.wineImg {
-  width: 200px;
-  height: "auto"
-
-}
-
-.wineDetail {
-  color: lightslategray;
-  font-size: 14px;
-  font-weight: bold;
-}

@@ -22,18 +22,13 @@ export default class Comments extends Component {
 
     }
 
-    componentDidMount() {
-        
-        this.setState(this.state); //re-render to show Comments component
-    }
-
     displayLeftPhotoCard(photoObj, imagePath) {
 
         
         let user=lookupUser(photoObj.owner);
         return (
             
-            <div className="photoCard">
+            <div className="leftPhotoCard">
                 <img className="photoImg" src={imagePath} /> 
 
                 <pre className="photoDetail">Likes: {photoObj.likes}     Dislikes: {photoObj.dislikes}</pre>
@@ -49,13 +44,6 @@ export default class Comments extends Component {
         if (this.props.location.photoObjStr === undefined) {
             return <div></div>
         }
-        
-        let toContainerId="CommentsContainer";
-        if (! this.state.redirectToHome) {  //do not overwrite display setup by submit form if redirecting away from login
-            
-            this.props.location.swapDisplayCallback(toContainerId, this.props);
-        }
-
 
         let photoObj=JSON.parse(this.props.location.photoObjStr);
         let imagePath=this.props.location.imagePath;
@@ -66,7 +54,8 @@ export default class Comments extends Component {
 
 
         return (
-            <div id="CommentsContainer">
+            <div id="commentsContainer">
+
                 <h1 style={{color:'blue'}}>Welcome to the Comments page</h1>
 
                 { this.displayLeftPhotoCard(photoObj, imagePath) }
