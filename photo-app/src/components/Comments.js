@@ -16,6 +16,9 @@ export default class Comments extends Component {
 
         this.displayLeftPhotoCard=this.displayLeftPhotoCard.bind(this);
         this.handleDeletePhoto=this.handleDeletePhoto.bind(this);
+        this.lookupComment=this.lookupComment.bind(this);
+        this.displayComment=this.displayComment.bind(this);
+        this.displayRightCommentList=this.displayRightCommentList.bind(this);
     }
 
     handleDeletePhoto(event) {
@@ -24,7 +27,6 @@ export default class Comments extends Component {
 
     displayLeftPhotoCard(photoObj, imagePath) {
 
-        
         let user=lookupUser(photoObj.owner);
         return (
             
@@ -35,6 +37,28 @@ export default class Comments extends Component {
                 <p className="photoDetail">by {user.name}</p><br /><br />
                 <button className="deletePhotoButton" onClick={this.handleDeletePhoto}>Delete</button>
 
+            </div>
+        )
+    }
+
+    lookupComment(id) {
+
+    }
+
+    displayComment(commentObj) {
+
+        let comment = this.lookupComment(commentObj.id); 
+        return (
+            <div>
+
+            </div>
+        )
+    }
+
+    displayRightCommentList(photoObj) {
+        return (
+            <div className="rightCommentList">
+                { photoObj.comments.map(this.displayComment) }
             </div>
         )
     }
@@ -55,8 +79,6 @@ export default class Comments extends Component {
 
         return (
             <div id="commentsContainer">
-
-                <h1 style={{color:'blue'}}>Welcome to the Comments page</h1>
 
                 { this.displayLeftPhotoCard(photoObj, imagePath) }
             </div>

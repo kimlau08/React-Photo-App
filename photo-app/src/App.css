@@ -99,11 +99,13 @@ border: solid 1px red;
 }
   .leftPhotoCard {
     
+    margin-top: 50px;
     margin-left: 50px;
     width: 400px;
     height: auto;
     
     text-align: center;
+border: solid 1px blueviolet;
   }
 
   .deletePhotoButton {
