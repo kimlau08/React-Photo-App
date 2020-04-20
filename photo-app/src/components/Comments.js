@@ -32,7 +32,7 @@ export default class Comments extends Component {
                 <img className="photoImg" src={imagePath} /> 
 
                 <pre className="photoDetail">Likes: {photoObj.likes}     Dislikes: {photoObj.dislikes}</pre>
-                <p className="photoDetail">by {user.name}</p><br /><br /><br />
+                <p className="photoDetail">by {user.name}</p><br /><br />
                 <button className="deletePhotoButton" onClick={this.handleDeletePhoto}>Delete</button>
 
             </div>
