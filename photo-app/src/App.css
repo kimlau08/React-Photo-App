@@ -52,6 +52,23 @@ border: solid 1px red;
   #homeContainer {
     background-color: white;
   }
+
+
+/******************************************************************
+*   Profile styling
+******************************************************************/
+  .userInfoBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    height: 250px;
+  }
+    .userImg {
+      margin-right: 100px;
+      width: 200px;
+      height: 200px;
+    }
   
 /******************************************************************
 *   Photo list styling

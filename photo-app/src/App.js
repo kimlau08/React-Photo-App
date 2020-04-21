@@ -48,6 +48,7 @@ export default class App extends Component {
     this.lookupPhoto=this.lookupPhoto.bind(this);
     this.getCommentsStr=this.getCommentsStr.bind(this);
     this.getPhotosStr=this.getPhotosStr.bind(this);
+    this.getUserPhotos=this.getUserPhotos.bind(this);
 
     this.allocCommentId=this.allocCommentId.bind(this);
     this.allocPhotoId=this.allocPhotoId.bind(this);
@@ -187,6 +188,16 @@ export default class App extends Component {
     return JSON.stringify(this.state.photos);
   }
 
+  getUserPhotos(userId) {
+    let photoList=[];  //return a list of photo id owned by the user
+    for (let i=0; i<this.state.photos.length; i++) {
+      if (this.state.photos[i].owner === userId) {
+        photoList.push(this.state.photos[i].id)
+      }
+    }
+
+    return JSON.stringify(photoList);
+  }
 
   updatePhotoObj (photoObjStr) {
 
@@ -244,7 +255,16 @@ export default class App extends Component {
                   }}>Bookmarks</Link>
                 </li>
                 <li>
-                  <Link to="/Profile">Profile</Link>
+                  <Link to={{
+                    pathname:                 "/Profile",
+                      fromContainer:           this.state.containerOnDisplay,
+
+                      lookupUserCallback:      this.lookupUser,
+                      swapDisplayCallback:     this.swapContainerOnDisplay,
+                      getCurrentUserCallback:  this.getCurrentUser,
+                      lookupPhotoCallback:     this.lookupPhoto,
+                      getUserPhotosCallback:   this.getUserPhotos
+                  }}>Profile</Link>
                 </li>
                 <li>
                   <Link to={{

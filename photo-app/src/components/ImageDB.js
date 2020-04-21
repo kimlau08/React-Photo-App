@@ -45,3 +45,4 @@ avatarImg.push(avatar1);
 avatarImg.push(avatar2);
 
 export default photoImages;
+export {avatarImg};

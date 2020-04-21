@@ -59,9 +59,9 @@ export default class Bookmarks extends Component {
         }
 
         let bookmarkPhotos = currentUser.bookmarkedPhoto;
-        let bookmarkedPhotoStr = JSON.stringify(bookmarkPhotos);
-
         bookmarkPhotos.sort( (x , y ) => y.likes - x.likes ) ;  //sort in descending order of likes
+
+        let bookmarkedPhotoStr = JSON.stringify(bookmarkPhotos);
 
         return (
             <div id={toContainerId}>
