@@ -15,11 +15,11 @@ export default class Comments extends Component {
         super(props);
 
         this.state = {
-            commentList: [],
-            photoObj: {},
+
+            //Use callbacks instead of passed-in object strings to avoid stale states, due to async activities from other components
+            photoId: "",
 
             newComment: "",
-
             redirectToHome: false
         }
 
@@ -35,9 +35,9 @@ export default class Comments extends Component {
         this.hideModal=this.hideModal.bind(this);
     }
 
-    displayLeftPhotoCard(imagePath) {
+    displayLeftPhotoCard(photoId, imagePath) {
 
-        let photoObj=this.state.photoObj;
+        let photoObj=JSON.parse(lookupPhoto(photoId));;
 
         let user=lookupUser(photoObj.owner);
         return (
@@ -54,9 +54,11 @@ export default class Comments extends Component {
 
     lookupComment(id) {
 
-        for (let i=0; i<this.state.commentList.length; i++) {
-            if (id === this.state.commentList[i].id) {
-                return this.state.commentList[i];
+        let commentList = JSON.parse(getCommentsStr());
+
+        for (let i=0; i<commentList.length; i++) {
+            if (id === commentList[i].id) {
+                return commentList[i];
             }
         }
         return null;
@@ -121,21 +123,25 @@ export default class Comments extends Component {
             document.getElementById("addCommentErrorMsg").innerHTML="";  //clear error msg
         }
 
-        let newComment = this.state.newComment
-        let photo = this.state.photoObj.id;
+        let newComment = this.state.newComment;
+        let photo = JSON.parse(lookupPhoto(this.state.photoId)).id;
         let source = currentUser.id;
+
+        if (newComment.length <= 0) {
+            return;     //no comment entered
+        }
 
         //add new comment to global state
         let newCommentObjStr = addNewComment( newComment, photo, source  );
         let newCommentObj = JSON.parse(newCommentObjStr);
 
         //add new comment to local state 
-        let newCommentList=this.state.commentList;
+        let newCommentList=JSON.parse(getCommentsStr());
         newCommentList.push( newCommentObj );
         this.setState( { commentList : newCommentList } );
 
         //update local photo comment list
-        let newPhotoObj = this.state.photoObj;
+        let newPhotoObj = JSON.parse(lookupPhoto(this.state.photoId));;
         let comments=newPhotoObj.comments;
         comments.push(newCommentObj.id);
         Object.assign( newPhotoObj, {comments : comments});
@@ -153,7 +159,7 @@ export default class Comments extends Component {
 
     displayRightCommentList() {
 
-        let photoObj=this.state.photoObj;
+        let photoObj=JSON.parse(lookupPhoto(this.state.photoId));;
 
         return (
             <div className="rightCommentList">
@@ -198,9 +204,7 @@ export default class Comments extends Component {
         lookupPhoto = this.props.location.lookupPhotoCallback;
         getCommentsStr = this.props.location.getCommentsStrCallback;
 
-        let photoId=this.props.location.photoId;
-        this.state.photoObj = JSON.parse(lookupPhoto(photoId));  //update state. but avoid rendering here.
-        this.state.commentList=JSON.parse(getCommentsStr());
+        this.state.photoId=this.props.location.photoId;
 
         commentContainerId="commentsContainer";
         this.showModal(commentContainerId);
@@ -208,7 +212,7 @@ export default class Comments extends Component {
         return (
             <div id={commentContainerId}>
 
-                { this.displayLeftPhotoCard(imagePath) }
+                { this.displayLeftPhotoCard(this.state.photoId, imagePath) }
 
                 { this.displayRightCommentList() }
             </div>

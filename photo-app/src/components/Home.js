@@ -5,7 +5,6 @@ import photoImages from './ImageDB';
 
 import Comments from './Comments';
 
-
 //callbacks from props
 let swapDisplay;
 let lookupUser; 
@@ -14,6 +13,7 @@ let getCurrentUser;
 let updatePhotoObj;
 let lookupPhoto;
 let getCommentsStr;
+let getPhotosStr;
 let currentUser={};
 let currentUserStr="";
 let commentListStr="";
@@ -74,13 +74,12 @@ export default class Home extends Component {
            return <div></div>;
         }
     
-        let photoStr=JSON.stringify(photoObj);
         let imagePath=this.state.images[photoObj.imageIdx];
     
         let user=lookupUser(photoObj.owner);     //lookupUser is passed in object parm
         if (user === null) {
-        console.error(`Photo ${photoObj.id} has unknown user with id ${photoObj.owner}`);
-        return <div></div>;
+            console.error(`Photo ${photoObj.id} has unknown user with id ${photoObj.owner}`);
+            return <div></div>;
         }
 
         //apply different border styling based on current user like/dislike
@@ -115,10 +114,10 @@ export default class Home extends Component {
         )
     }
 
-    componentDidMount() {
+    // componentDidMount() {
         
-        this.setState(this.state); //re-render to clear the Home component display
-    }
+    //     this.setState(this.state); //re-render to clear the Home component display
+    // }
 
     handleUpdate() {
         this.forceUpdate();
@@ -133,15 +132,8 @@ export default class Home extends Component {
 
         //check this.props and then this.props.location for info
         
-        if (this.props.photoListStr !== undefined  &&       //invoked as React component
-            this.props.currentUserStr !== undefined) {
-
-            photos = JSON.parse(this.props.photoListStr);
-            currentUser = JSON.parse(this.props.currentUserStr);
-            currentUserStr = this.props.currentUserStr;         //to be passed along to Comments component
-            commentListStr = this.props.commentListStr;
-            fromContainer = this.props.fromContainer;
-            hasData = true;
+        if (this.props.getPhotosStrCallback !== undefined  &&       //invoked as React component
+            this.props.getCurrentUserCallback !== undefined) {
 
             swapDisplay = this.props.swapDisplayCallback;
             lookupUser = this.props.lookupUserCallback;
@@ -150,16 +142,12 @@ export default class Home extends Component {
             updatePhotoObj = this.props.updatePhotoObjCallback;
             lookupPhoto = this.props.lookupPhotoCallback;
             getCommentsStr = this.props.getCommentsStrCallback;
+            getPhotosStr = this.props.getPhotosStrCallback;
 
-        } else if (this.props.location.photoListStr != undefined &&   //invoked as React route
-                    this.props.location.currentUserStr !== undefined) {
-
-            photos = JSON.parse(this.props.location.photoListStr);
-            currentUser = JSON.parse(this.props.location.currentUserStr);
-            currentUserStr = this.props.location.currentUserStr;      //to be passed along to Comments component
-            commentListStr = this.props.location.commentListStr; 
-            fromContainer = this.props.location.fromContainer;
             hasData = true;
+
+        } else if (this.props.location.getPhotosStrCallback != undefined &&   //invoked as React route
+                    this.props.location.getCurrentUserCallback !== undefined) {
 
             swapDisplay = this.props.location.swapDisplayCallback;
             lookupUser = this.props.location.lookupUserCallback;
@@ -168,12 +156,20 @@ export default class Home extends Component {
             updatePhotoObj = this.props.location.updatePhotoObjCallback;
             lookupPhoto = this.props.location.lookupPhotoCallback;
             getCommentsStr = this.props.location.getCommentsStrCallback;
+            getPhotosStr = this.props.location.getPhotosStrCallback;
 
+            hasData = true;
         }
 
         if (!hasData) {
             return <div></div>
         }
+
+        photos = JSON.parse(getPhotosStr());
+        currentUserStr = getCurrentUser();          //to be passed along to Comments component
+        currentUser = JSON.parse(currentUserStr);
+        commentListStr = getCommentsStr();
+        fromContainer = this.props.fromContainer;
 
         let toContainerId="homeContainer";
         swapDisplay(toContainerId, this.props);
@@ -183,6 +179,7 @@ export default class Home extends Component {
             return <div></div>
         }
 
+        photos.sort( (x , y ) => y.likes - x.likes ) ;  //sort in descending order of likes
 
         return (
             <div id={toContainerId}>

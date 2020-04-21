@@ -90,11 +90,11 @@ border: solid 1px red;
 
 #commentsContainer {
   position: absolute;
-  top: 200px;
+  top: 250px;
   left: 500px;
 
   width: 1000px;
-  height: 900px;
+  height: 850px;
 
   border: solid 1px lightslategray;
   background-color: #E6DBDA;

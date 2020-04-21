@@ -47,15 +47,12 @@ export default class App extends Component {
     this.updatePhotoObj=this.updatePhotoObj.bind(this);
     this.lookupPhoto=this.lookupPhoto.bind(this);
     this.getCommentsStr=this.getCommentsStr.bind(this);
+    this.getPhotosStr=this.getPhotosStr.bind(this);
 
     this.allocCommentId=this.allocCommentId.bind(this);
     this.allocPhotoId=this.allocPhotoId.bind(this);
 
   }
-  
-// componentDidMount() {
-//   this.getWineAPI();
-// }
 
 
 /***************************Code for Photo App starts here***************************** */
@@ -186,6 +183,9 @@ export default class App extends Component {
   getUsersStr() {
     return JSON.stringify(this.state.users);
   }
+  getPhotosStr() {
+    return JSON.stringify(this.state.photos);
+  }
 
 
   updatePhotoObj (photoObjStr) {
@@ -227,11 +227,21 @@ export default class App extends Component {
                       getCurrentUserCallback:  this.getCurrentUser,
                       updatePhotoObjCallback:  this.updatePhotoObj,
                       lookupPhotoCallback:     this.lookupPhoto,
-                      getCommentsStrCallback:  this.getCommentsStr
+                      getCommentsStrCallback:  this.getCommentsStr,
+                      getPhotosStrCallback:    this.getPhotosStr
                   }}>Home</Link>
                 </li>
+
                 <li>
-                  <Link to="/Bookmarks">Bookmarks</Link>
+                  <Link to={{
+                    pathname:                 "/Bookmarks",
+                      fromContainer:           this.state.containerOnDisplay,
+
+                      lookupUserCallback:      this.lookupUser,
+                      swapDisplayCallback:     this.swapContainerOnDisplay,
+                      getCurrentUserCallback:  this.getCurrentUser,
+                      lookupPhotoCallback:     this.lookupPhoto,
+                  }}>Bookmarks</Link>
                 </li>
                 <li>
                   <Link to="/Profile">Profile</Link>
@@ -306,6 +316,7 @@ export default class App extends Component {
           updatePhotoObjCallback = {this.updatePhotoObj}
           lookupPhotoCallback = {this.lookupPhoto}
           getCommentsStrCallback = {this.getCommentsStr}
+          getPhotosStrCallback = {this.getPhotosStr}
         />
 
       </div>
