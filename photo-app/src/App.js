@@ -24,8 +24,10 @@ export default class App extends Component {
       users: userData,
       comments: commentData,
 
-      currentUser: {},
+      newPhotoId: 2500,   //id of new photos start from 2500
+      newCommentId: 4500, //id of new comments start from 4500
 
+      currentUser: {},
       currentUserId: "",
 
       containerOnDisplay: "homeContainer"
@@ -39,6 +41,15 @@ export default class App extends Component {
     
     this.setContainerOnDisplay=this.setContainerOnDisplay.bind(this);
     this.swapContainerOnDisplay=this.swapContainerOnDisplay.bind(this);
+    this.addNewComment=this.addNewComment.bind(this);
+    this.getCurrentUser=this.getCurrentUser.bind(this);
+    this.getUsersStr=this.getUsersStr.bind(this);
+    this.updatePhotoObj=this.updatePhotoObj.bind(this);
+    this.lookupPhoto=this.lookupPhoto.bind(this);
+    this.getCommentsStr=this.getCommentsStr.bind(this);
+
+    this.allocCommentId=this.allocCommentId.bind(this);
+    this.allocPhotoId=this.allocPhotoId.bind(this);
 
   }
   
@@ -127,6 +138,74 @@ export default class App extends Component {
     }
   }
 
+  addNewComment( newComment, photo, source ) {
+
+    let id=this.allocCommentId();
+
+    let newCommentObj = {
+      "id": id,
+      "comment": newComment,
+      "photo":  photo,
+      "source": source      
+    }
+    let newCommentList = this.state.comments;
+    newCommentList.push(newCommentObj);
+    this.setState( { comments : newCommentList  });
+
+    return JSON.stringify(newCommentObj);
+
+  }
+
+  allocCommentId() {
+    let id=this.state.newCommentId;
+    this.state.newCommentId += 1;
+    return id;
+  }
+  allocPhotoId() {
+    let id=this.state.newPhotoId;
+    this.state.newCommentId += 1;
+    return id;
+  }
+
+  getCurrentUser() {
+    return JSON.stringify(this.state.currentUser);
+  }
+
+  lookupPhoto (photoId) {
+
+    for (let i=0; i<this.state.photos.length; i++) {
+      if (this.state.photos[i].id===photoId) {
+        return JSON.stringify(this.state.photos[i]);
+      } 
+    }
+    return null;
+  }
+  getCommentsStr() {
+    return JSON.stringify(this.state.comments);
+  }
+  getUsersStr() {
+    return JSON.stringify(this.state.users);
+  }
+
+
+  updatePhotoObj (photoObjStr) {
+
+    let photoObj = JSON.parse(photoObjStr);
+
+    let newPhotoList = this.state.photos;
+    for (let i=0; i<newPhotoList.length; i++) {
+      if (photoObj.id === newPhotoList[i].id) {
+
+        //update photo object
+        newPhotoList.splice( i, 1, photoObj);
+
+        this.setState( {photos : newPhotoList} )
+
+        break;
+      }
+    }
+  }
+
   navBar() {
     return (
       <div>
@@ -143,7 +222,12 @@ export default class App extends Component {
 
                       lookupUserCallback:      this.lookupUser,
                       updateUserDataCallback:  this.updateUserData,
-                      swapDisplayCallback:     this.swapContainerOnDisplay
+                      swapDisplayCallback:     this.swapContainerOnDisplay,
+                      addNewCommentCallback:   this.addNewComment,
+                      getCurrentUserCallback:  this.getCurrentUser,
+                      updatePhotoObjCallback:  this.updatePhotoObj,
+                      lookupPhotoCallback:     this.lookupPhoto,
+                      getCommentsStrCallback:  this.getCommentsStr
                   }}>Home</Link>
                 </li>
                 <li>
@@ -156,7 +240,7 @@ export default class App extends Component {
                   <Link to={{
                     pathname: "/Login",
                     authenticateUserCallBack: this.authenticateUser,
-                    swapDisplayCallback:      this.swapContainerOnDisplay
+                    swapDisplayCallback:      this.swapContainerOnDisplay,
                   }}>Login</Link>
                 </li>
                 <li>
@@ -217,6 +301,11 @@ export default class App extends Component {
           lookupUserCallback = {this.lookupUser}
           updateUserDataCallback = {this.updateUserData}
           swapDisplayCallback = {this.swapContainerOnDisplay}
+          addNewCommentCallback = {this.addNewComment}
+          getCurrentUserCallback = {this.getCurrentUser}
+          updatePhotoObjCallback = {this.updatePhotoObj}
+          lookupPhotoCallback = {this.lookupPhoto}
+          getCommentsStrCallback = {this.getCommentsStr}
         />
 
       </div>

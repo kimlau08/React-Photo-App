@@ -49,7 +49,9 @@ border: solid 1px red;
     font-style: italic;
   }
 
-  
+  #homeContainer {
+    background-color: white;
+  }
   
 /******************************************************************
 *   Photo list styling
@@ -88,7 +90,7 @@ border: solid 1px red;
 
 #commentsContainer {
   position: absolute;
-  top: 100px;
+  top: 200px;
   left: 500px;
 
   width: 1000px;
@@ -96,31 +98,61 @@ border: solid 1px red;
 
   border: solid 1px lightslategray;
   background-color: #E6DBDA;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
   .leftPhotoCard {
     
     margin-top: 50px;
-    margin-left: 50px;
-    width: 400px;
+    width: 40%;
     height: auto;
     
     text-align: center;
 border: solid 1px blueviolet;
   }
 
-  .deletePhotoButton {
-    border: solid 1px lightslategray;
-    border-radius: 10px;
+  .rightCommentList {
+    
+    margin-top: 50px;
+    width: 50%;
+    height: auto;
 
-    width: 100px;
-    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-    font-size: 18px;
-    text-align: center;
+border: solid 1px blueviolet;
   }
+    .commentLine {
+      border: solid 1px lightslategray;
+    }
+      .commentText {
+        margin-top: -10px;
+        margin-left: 5px;
+      }
 
+    .addCommentBox {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+      #addCommentErrorMsg {
+        color: red;
 
+      }
+      .commentButton {
+        margin: 10px 15px;
+        border: solid 1px lightslategray;
+        border-radius: 10px;
 
+        width: 150px;
+        height: 30px;
+
+        font-size: 18px;
+        text-align: center;
+      }
+  
 
 /******************************************************************
 *   Login form
@@ -197,47 +229,6 @@ border: solid 1px blueviolet;
   }
 
 
-
-
-/******************************************************************
-*
-*   Wine list styling
-*
-******************************************************************/
-
-.wineListText {
-  font-size: 32px;
-  font-weight: bold;
-  color: lightslategray;
-  }
-  
-  .wineCard {
-  display: inline-block;
-  width: 250px;
-  height: auto;
-  
-  text-align: center;
-  border: solid 1px lightslategray;
-  }
-  
-  .wineName {
-    color: blueviolet;
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  .wineImg {
-    width: 200px;
-    height: "auto"
-  
-  }
-  
-  .wineDetail {
-    color: lightslategray;
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
 
 /******************************************************************
 *

@@ -9,6 +9,11 @@ import Comments from './Comments';
 //callbacks from props
 let swapDisplay;
 let lookupUser; 
+let addNewComment;
+let getCurrentUser;
+let updatePhotoObj;
+let lookupPhoto;
+let getCommentsStr;
 let currentUser={};
 let currentUserStr="";
 let commentListStr="";
@@ -24,6 +29,7 @@ export default class Home extends Component {
 
         this.getLikeDislikeStyle=this.getLikeDislikeStyle.bind(this);
         this.displayPhotoAndInfo=this.displayPhotoAndInfo.bind(this);
+        this.handleUpdate=this.handleUpdate.bind(this);
 
     }
 
@@ -85,13 +91,20 @@ export default class Home extends Component {
         
                 <Link to={{
                         pathname:         "/Comments",
-                            photoObjStr:      photoStr,
+                            photoId:          photoObj.id,
                             imagePath:        imagePath,
                             currentUserStr:   currentUserStr,
                             commentListStr:   commentListStr,
 
                             lookupUserCallback: lookupUser,
                             swapDisplayCallback: swapDisplay,
+                            addNewCommentCallback: addNewComment,
+                            getCurrentUserCallback: getCurrentUser,
+                            updatePhotoObjCallback: updatePhotoObj,
+                            
+                            lookupPhotoCallback: lookupPhoto,
+                            getCommentsStrCallback: getCommentsStr,
+                            handleUpdateCallback: this.handleUpdate
                         }}>
                     <img className="photoImg" style={borderStyle} src={this.state.images[photoObj.imageIdx]} /> 
                 </Link>
@@ -105,6 +118,10 @@ export default class Home extends Component {
     componentDidMount() {
         
         this.setState(this.state); //re-render to clear the Home component display
+    }
+
+    handleUpdate() {
+        this.forceUpdate();
     }
 
     render() {
@@ -128,6 +145,11 @@ export default class Home extends Component {
 
             swapDisplay = this.props.swapDisplayCallback;
             lookupUser = this.props.lookupUserCallback;
+            addNewComment = this.props.addNewCommentCallback;
+            getCurrentUser = this.props.getCurrentUserCallback;
+            updatePhotoObj = this.props.updatePhotoObjCallback;
+            lookupPhoto = this.props.lookupPhotoCallback;
+            getCommentsStr = this.props.getCommentsStrCallback;
 
         } else if (this.props.location.photoListStr != undefined &&   //invoked as React route
                     this.props.location.currentUserStr !== undefined) {
@@ -141,6 +163,11 @@ export default class Home extends Component {
 
             swapDisplay = this.props.location.swapDisplayCallback;
             lookupUser = this.props.location.lookupUserCallback;
+            addNewComment = this.props.location.addNewCommentCallback;
+            getCurrentUser = this.props.location.getCurrentUserCallback;
+            updatePhotoObj = this.props.location.updatePhotoObjCallback;
+            lookupPhoto = this.props.location.lookupPhotoCallback;
+            getCommentsStr = this.props.location.getCommentsStrCallback;
 
         }
 
