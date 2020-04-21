@@ -112,6 +112,7 @@
         "userId": "user1",
         "password": "user1",
         "name":  "user1",
+        "profileImgIdx": 0,
         "likePhoto": [2000, 2001, 2002],
         "dislikePhoto": [2003, 2004],
         "bookmarkedPhoto": [1000, 2000, 2001]
@@ -123,6 +124,7 @@
         "userId": "user2",
         "password": "user2",
         "name":  "user2",
+        "profileImgIdx": 1,
         "likePhoto": [1000, 1001, 1002],
         "dislikePhoto": [1003, 1004],
         "bookmarkedPhoto": [2000, 1000, 1001]
@@ -134,6 +136,7 @@
         "userId": "user3",
         "password": "user3",
         "name":  "user3",
+        "profileImgIdx": 2,
         "likePhoto": [],
         "dislikePhoto": [],
         "bookmarkedPhoto": []

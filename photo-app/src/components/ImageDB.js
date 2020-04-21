@@ -17,6 +17,10 @@ import img14 from '../assets/fav-thing-6.jpg';
 import img15 from '../assets/fav-thing-7.jpg';
 import img16 from '../assets/fav-thing-8.jpg';
 
+import avatar0 from '../assets/avatar0.png';
+import avatar1 from '../assets/avatar1.jpg';
+import avatar2 from '../assets/avatar2.jpg';
+
 let photoImages=[];
 photoImages.push(img1);
 photoImages.push(img2);
@@ -34,5 +38,10 @@ photoImages.push(img13);
 photoImages.push(img14);
 photoImages.push(img15);
 photoImages.push(img16);
+
+let avatarImg=[];
+avatarImg.push(avatar0);
+avatarImg.push(avatar1);
+avatarImg.push(avatar2);
 
 export default photoImages;

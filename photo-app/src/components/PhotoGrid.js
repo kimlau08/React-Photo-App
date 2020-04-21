@@ -85,11 +85,9 @@ export default class PhotoGrid extends Component {
     }
 
     render () {
-//        let fromContainer="";
         
         if (this.props.photoListStr != undefined ) {
 
-//         swapDisplay = this.props.swapDisplayCallback;
             lookupUser = this.props.lookupUserCallback;
             lookupPhoto = this.props.lookupPhotoCallback;
             getCurrentUser = this.props.getCurrentUserCallback;
@@ -97,16 +95,6 @@ export default class PhotoGrid extends Component {
         } else {
             return <div></div>
         }
-
-// fromContainer = this.props.fromContainer;
-
-// let toContainerId="bookmarksContainer";
-//      swapDisplay(toContainerId, this.props);
-
-// if (fromContainer === toContainerId &&   //do not render if coming as a React route 
-//     this.props !== undefined ) {
-//     return <div></div>
-// }
 
         let currentUserStr = getCurrentUser();
         currentUser=JSON.parse(currentUserStr);

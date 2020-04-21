@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function Profile () {
-    return (
-        <React.Fragment>
-            <h1 style={{color:'orange'}}>Welcome to the Profile page</h1>
-        </React.Fragment>
-    )
+import avatarImg from './ImageDB';
+
+export default class Profile extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state={
+            profilePhotos : avatarImg
+        }
+        
+    }
+
+    render() {
+        return (
+            <div className="profileContainer">
+
+                <div className="userInfoRow">
+
+                </div>
+            </div>
+        )
+    }
 }
-
-export default Profile;
