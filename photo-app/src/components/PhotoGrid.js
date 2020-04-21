@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 
 import photoImages from './ImageDB';
-import PhotoGrid from './PhotoGrid';
 
-let swapDisplay;
+//  let swapDisplay;
 let lookupUser;
-let getCurrentUser;
 let lookupPhoto;
+let getCurrentUser;
 let currentUser={};
-let currentUserStr="";
 
 
-export default class Bookmarks extends Component {
+export default class PhotoGrid extends Component {
     constructor(props) {
         super(props);
 
@@ -87,61 +85,44 @@ export default class Bookmarks extends Component {
     }
 
     render () {
-        let fromContainer="";
+//        let fromContainer="";
         
-        if (this.props.location.lookupPhotoCallback != undefined &&   //invoked as React route
-            this.props.location.getCurrentUserCallback !== undefined) {
+        if (this.props.photoListStr != undefined ) {
 
-            swapDisplay = this.props.location.swapDisplayCallback;
-            lookupUser = this.props.location.lookupUserCallback;
-            getCurrentUser = this.props.location.getCurrentUserCallback;
-            lookupPhoto = this.props.location.lookupPhotoCallback;
+//         swapDisplay = this.props.swapDisplayCallback;
+            lookupUser = this.props.lookupUserCallback;
+            lookupPhoto = this.props.lookupPhotoCallback;
+            getCurrentUser = this.props.getCurrentUserCallback;
 
         } else {
             return <div></div>
         }
 
-        currentUserStr = getCurrentUser();          //to be passed along to Comments component
-        currentUser = JSON.parse(currentUserStr);
+// fromContainer = this.props.fromContainer;
 
+// let toContainerId="bookmarksContainer";
+//      swapDisplay(toContainerId, this.props);
 
-        if (Object.keys(currentUser).length === 0 &&
-        currentUser.constructor === Object ) {    //empty object. no user logged in
+// if (fromContainer === toContainerId &&   //do not render if coming as a React route 
+//     this.props !== undefined ) {
+//     return <div></div>
+// }
 
-            alert("Please login")
-            
-            return <div></div>;                     
-        } 
+        let currentUserStr = getCurrentUser();
+        currentUser=JSON.parse(currentUserStr);
+        let photoArray = JSON.parse(this.props.photoListStr);
 
-        fromContainer = this.props.fromContainer;
-
-        let toContainerId="bookmarksContainer";
-        swapDisplay(toContainerId, this.props);
-
-        if (fromContainer === toContainerId &&   //do not render if coming as a React route 
-            this.props.location !== undefined ) {
-            return <div></div>
-        }
-
-        let bookmarkPhotos = currentUser.bookmarkedPhoto;
-        let bookmarkedPhotoStr = JSON.stringify(bookmarkPhotos);
-
-        bookmarkPhotos.sort( (x , y ) => y.likes - x.likes ) ;  //sort in descending order of likes
+        photoArray.sort( (x , y ) => y.likes - x.likes ) ;  //sort in descending order of likes
 
         return (
-            <div id={toContainerId}>
+            <div id="photoGrid">
                 <ul>
                     <li>
-
-                        <PhotoGrid photoListStr={bookmarkedPhotoStr} 
-                                   lookupUserCallback={lookupUser}
-                                   lookupPhotoCallback={lookupPhoto}
-                                   getCurrentUserCallback={getCurrentUser}
-                        />
+                        { photoArray.map( this.displayPhotoAndInfo) }
                     </li>
                 </ul>
             </div>
         )
-}
+    }
 }
 
