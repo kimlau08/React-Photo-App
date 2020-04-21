@@ -69,13 +69,6 @@ export default class Profile extends Component {
             return <div></div>
         }
 
-let bookmarkPhotos = currentUser.bookmarkedPhoto;
-let bookmarkedPhotoStr = JSON.stringify(bookmarkPhotos);
-
-bookmarkPhotos.sort( (x , y ) => y.likes - x.likes ) ;  //sort in descending order of likes
-
-
-
         let userPhotoList=JSON.parse(getUserPhotos(currentUser.id));
         userPhotoList.sort( (x , y ) => y.likes - x.likes ) ;  //sort in descending order of likes
 
