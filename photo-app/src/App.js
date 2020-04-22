@@ -14,7 +14,16 @@ import Profile from './components/Profile';
 import Comments from './components/Comments';
 
 
-export default class App extends Component {
+/******************************************************************/
+/*********************Redux import code ***************************/
+/******************************************************************/
+import { connect } from 'react-redux';
+
+import inc, {dec} from './actions/index.js'; 
+import {authenticateVisitor} from './actions/index.js'; 
+
+
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -53,10 +62,40 @@ export default class App extends Component {
     this.allocCommentId=this.allocCommentId.bind(this);
     this.allocPhotoId=this.allocPhotoId.bind(this);
 
+    this.dispatchAuthentication=this.dispatchAuthentication.bind(this);
   }
 
 
-/***************************Code for Photo App starts here***************************** */
+/*****************Redux Intro dispatch code starts here*******************
+ * 
+ * increment, decrement functions only dispatch action. 
+ *    The action objects (only) have been refactored to ./action/index.js
+ * 
+**************************************************************************/
+
+increment = () => {
+  this.props.dispatch(inc());
+}
+
+decrement = () => {
+  this.props.dispatch(dec());
+}
+
+
+
+dispatchAuthentication = (userCredentialStr, userListStr) => {
+  
+  this.props.dispatch(authenticateVisitor(userCredentialStr, userListStr));
+}
+
+
+/************************************************************************
+ *        Redux Intro dispatch code ends here
+**************************************************************************/
+
+
+
+
 
   lookupUser(id) {
     for (let i=0; i<this.state.users.length; i++) {
@@ -111,6 +150,12 @@ export default class App extends Component {
 
   authenticateUser(userCredentialStr) {
 
+
+    /**************Redux dispatch to authenticate************* */
+    let userListStr = JSON.stringify(this.state.users)
+    this.dispatchAuthentication(userCredentialStr, userListStr);
+
+
     let userCredential=JSON.parse(userCredentialStr);
     let userObj={};
     for (let i=0; i<this.state.users.length; i++) {
@@ -135,6 +180,7 @@ export default class App extends Component {
       return false;
     }
   }
+
 
   addNewComment( newComment, photo, source ) {
 
@@ -318,6 +364,24 @@ export default class App extends Component {
 
     return (
       <div>
+	  
+{/************************************************************************************/}
+{/*********************Redux counter example display code starts here*************** */}
+{/************************************************************************************/}
+      
+      {/* <h2>Counter</h2>
+      <div>
+        <button onClick={this.decrement}>-</button>
+        <span>{this.props.count}</span>
+        <button onClick={this.increment}>+</button>
+      </div> */}
+
+{/************************************************************************************/}
+{/*********************Redux counter example display code ends here*******************/}
+{/************************************************************************************/}
+
+	  
+	  
 
         {this.navBar()}
     
@@ -342,3 +406,26 @@ export default class App extends Component {
       </div>
   )}
 }
+
+
+
+{/************************************************************************************/}
+{/*********************Redux counter export code starts here*************** */}
+{/************************************************************************************/}
+
+function mapStateToProps(state) {
+  return {
+    count: state.count,
+
+    visitorCredentialStr: state.visitorCredentialStr,
+    loggedInUseStr: state.loggedInUseStr
+  };
+}
+
+
+export default connect(mapStateToProps)(App);
+
+
+{/************************************************************************************/}
+{/*********************Redux counter export code Ends here*************** */}
+{/************************************************************************************/}

@@ -23,7 +23,7 @@ textarea {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-border: solid 1px lime;
+/* border: solid 1px lime; */
 }
   .menuBar {
     width: 400px;
@@ -34,7 +34,7 @@ border: solid 1px lime;
 
     font-weight: bold;
     font-style: italic;
-border: solid 1px red;
+/* border: solid 1px red; */
   }
   .currentUserId {
     width: 100px;
