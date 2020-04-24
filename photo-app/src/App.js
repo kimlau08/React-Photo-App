@@ -13,14 +13,9 @@ import Profile from './components/Profile';
 
 import Comments from './components/Comments';
 
-
-/******************************************************************/
-/*********************Redux import code ***************************/
-/******************************************************************/
 import { connect } from 'react-redux';
 
-import inc, {dec} from './actions/index.js'; 
-import {authenticateVisitor} from './actions/index.js'; 
+import authenticateVisitor from './actions/index.js'; 
 
 
 class App extends Component {
@@ -52,6 +47,7 @@ class App extends Component {
     this.swapContainerOnDisplay=this.swapContainerOnDisplay.bind(this);
     this.addNewComment=this.addNewComment.bind(this);
     this.getCurrentUser=this.getCurrentUser.bind(this);
+    this.setCurrentUser=this.setCurrentUser.bind(this);
     this.getUsersStr=this.getUsersStr.bind(this);
     this.updatePhotoObj=this.updatePhotoObj.bind(this);
     this.lookupPhoto=this.lookupPhoto.bind(this);
@@ -66,34 +62,12 @@ class App extends Component {
   }
 
 
-/*****************Redux Intro dispatch code starts here*******************
- * 
- * increment, decrement functions only dispatch action. 
- *    The action objects (only) have been refactored to ./action/index.js
- * 
-**************************************************************************/
-
-increment = () => {
-  this.props.dispatch(inc());
-}
-
-decrement = () => {
-  this.props.dispatch(dec());
-}
 
 
-
-dispatchAuthentication = (userCredentialStr, userListStr) => {
-  
-  this.props.dispatch(authenticateVisitor(userCredentialStr, userListStr));
-}
-
-
-/************************************************************************
- *        Redux Intro dispatch code ends here
-**************************************************************************/
-
-
+  dispatchAuthentication = (userCredentialStr, userListStr, setCurrentUserCallback) => {
+    
+    this.props.dispatch(authenticateVisitor(userCredentialStr, userListStr, setCurrentUserCallback));
+  }
 
 
 
@@ -153,7 +127,7 @@ dispatchAuthentication = (userCredentialStr, userListStr) => {
 
     /**************Redux dispatch to authenticate************* */
     let userListStr = JSON.stringify(this.state.users)
-    this.dispatchAuthentication(userCredentialStr, userListStr);
+    this.dispatchAuthentication(userCredentialStr, userListStr, this.setCurrentUser);
 
 
     let userCredential=JSON.parse(userCredentialStr);
@@ -214,6 +188,17 @@ dispatchAuthentication = (userCredentialStr, userListStr) => {
   getCurrentUser() {
     return JSON.stringify(this.state.currentUser);
   }
+
+  setCurrentUser(userStr) {
+
+    let userObj = JSON.parse(userStr);
+    let userId = userObj.userId;
+
+    this.setState( { currentUser: userObj  } )
+    this.setState( { currentUserId: userId  } );
+
+  }
+
 
   lookupPhoto (photoId) {
 
@@ -364,24 +349,7 @@ dispatchAuthentication = (userCredentialStr, userListStr) => {
 
     return (
       <div>
-	  
-{/************************************************************************************/}
-{/*********************Redux counter example display code starts here*************** */}
-{/************************************************************************************/}
-      
-      {/* <h2>Counter</h2>
-      <div>
-        <button onClick={this.decrement}>-</button>
-        <span>{this.props.count}</span>
-        <button onClick={this.increment}>+</button>
-      </div> */}
-
-{/************************************************************************************/}
-{/*********************Redux counter example display code ends here*******************/}
-{/************************************************************************************/}
-
-	  
-	  
+  
 
         {this.navBar()}
     
@@ -409,23 +377,13 @@ dispatchAuthentication = (userCredentialStr, userListStr) => {
 
 
 
-{/************************************************************************************/}
-{/*********************Redux counter export code starts here*************** */}
-{/************************************************************************************/}
-
 function mapStateToProps(state) {
   return {
-    count: state.count,
 
-    visitorCredentialStr: state.visitorCredentialStr,
-    loggedInUseStr: state.loggedInUseStr
+    loggedInUserId:  state.loggedInUserId,
+    loggedInUserObjStr: state.loggedInUserObjStr
   };
 }
 
-
 export default connect(mapStateToProps)(App);
 
-
-{/************************************************************************************/}
-{/*********************Redux counter export code Ends here*************** */}
-{/************************************************************************************/}

@@ -1,26 +1,13 @@
 
-const authenticateVisitor = (userCredentialStr, userListStr) => {
+const authenticateVisitor = (userCredentialStr, userListStr, setCurrentUserCallback) => {
     return {                //return an object
         type: "AUTHENTICATE",
 
         userCredentialStr: userCredentialStr,
-        userListStr: userListStr
+        userListStr: userListStr,
+        setCurrentUer: setCurrentUserCallback
     }
 }
 
-const inc = () => {
-    return {                //return an object
-        type: "INCREMENT"
-    }
-}
 
-const dec = () => {
-    return {                //return an object
-        type: "DECREMENT"
-    }
-}
-
-export default inc;
-export {dec} ;
-
-export {authenticateVisitor} ;
+export default authenticateVisitor;

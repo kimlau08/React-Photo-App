@@ -5,17 +5,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 
-/**********Redux import and code starts here**********/
 
-import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-import reducer from './reducers/index.js' ; //index.js can be skipped. it will be used as default
-import {authReducer} from './reducers/index.js' ; //index.js can be skipped. it will be used as default
+import authReducer from './reducers/index.js' ;
 
-
-//const store = createStore(reducer);
 
 const store = createStore(authReducer);
 
@@ -27,14 +22,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-
-/********Orig version of render below********/
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
