@@ -159,7 +159,7 @@ export default class Comments extends Component {
         }
 
         let newComment = this.state.newComment;
-        let photo = JSON.parse(lookupPhoto(this.state.photoId)).id;
+        let newPhotoObj = JSON.parse(lookupPhoto(this.state.photoId))
         let source = currentUser.id;
 
         if (newComment.length <= 0) {
@@ -167,7 +167,7 @@ export default class Comments extends Component {
         }
 
         //add new comment to global state
-        let newCommentObjStr = addNewComment( newComment, photo, source  );
+        let newCommentObjStr = addNewComment( newComment, newPhotoObj.id, source  );
         let newCommentObj = JSON.parse(newCommentObjStr);
 
         //add new comment to local state 
@@ -176,9 +176,8 @@ export default class Comments extends Component {
         this.setState( { commentList : newCommentList } );
 
         //update local photo comment list
-        let newPhotoObj = JSON.parse(lookupPhoto(this.state.photoId));;
         let comments=newPhotoObj.comments;
-        comments.push(newCommentObj.comment);
+        comments.push(newCommentObj.id);
         Object.assign( newPhotoObj, {comments : comments});
         
         //update global photo state
