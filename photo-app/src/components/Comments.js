@@ -39,9 +39,12 @@ export default class Comments extends Component {
 
     displayLeftPhotoCard(photoId, imagePath) {
 
-        let photoObj=JSON.parse(lookupPhoto(photoId));;
+        let photoObj=JSON.parse(lookupPhoto(photoId));
 
         let user=lookupUser(photoObj.owner);
+        if (user === null ) {
+            console.error( `cannot find user: id ${photoObj.owner}` );
+        }
         return (
             
             <div className="leftPhotoCard">
@@ -170,12 +173,7 @@ export default class Comments extends Component {
         let newCommentObjStr = addNewComment( newComment, newPhotoObj.id, source  );
         let newCommentObj = JSON.parse(newCommentObjStr);
 
-        //add new comment to local state 
-        let newCommentList=JSON.parse(getCommentsStr());
-        newCommentList.push( newCommentObj );
-        this.setState( { commentList : newCommentList } );
-
-        //update local photo comment list
+        //update photo comment list
         let comments=newPhotoObj.comments;
         comments.push(newCommentObj.id);
         Object.assign( newPhotoObj, {comments : comments});

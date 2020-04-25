@@ -9,9 +9,8 @@ import {userData, commentData} from './components/EntityDB';
 import Bookmarks from './components/Bookmarks';
 import Home from './components/Home';
 import Login from './components/Login';
+import Logout from './components/Logout'
 import Profile from './components/Profile';
-
-import Comments from './components/Comments';
 
 import { connect } from 'react-redux';
 
@@ -39,6 +38,7 @@ class App extends Component {
 
     this.lookupUser=this.lookupUser.bind(this);
     this.authenticateUser=this.authenticateUser.bind(this);
+    this.logoutUser=this.logoutUser.bind(this);
     this.navBar=this.navBar.bind(this);
     this.handleLogout=this.handleLogout.bind(this);
     this.updateUserData=this.updateUserData.bind(this);
@@ -85,6 +85,13 @@ class App extends Component {
     this.state.containerOnDisplay = container;   
   }
 
+  hideCommentBox() {
+    let containerElem = document.getElementById("commentsContainer");
+    if (containerElem !== null) {
+        containerElem.style.zIndex = -100;
+    }
+  }
+
 
   swapContainerOnDisplay(toContainerId, inputProps) {   
         
@@ -97,10 +104,7 @@ class App extends Component {
       return;
     }
 
-    let containerElem = document.getElementById("commentsContainer");
-    if (containerElem !== null) {
-        containerElem.style.zIndex = -100;
-    }
+    this.hideCommentBox();
 
     let fromContainerId=this.state.containerOnDisplay;
     let fromContainerElem=null;
@@ -124,6 +128,16 @@ class App extends Component {
       document.getElementById(toContainerId).style.display="";
       document.getElementById(toContainerId).style.position="relative";  //to ensure the position is set, and fix the problem of modal continues showing on other components
       this.setContainerOnDisplay(toContainerId); //save the to container 
+
+    }
+  }
+
+  logoutUser() {
+    
+    if (this.state.currentUserId !== "") {
+
+      this.setState( {currentUserId : ""} );
+      this.setState( {currentUser   : {}} );
 
     }
   }
@@ -337,7 +351,11 @@ class App extends Component {
                   }}>Login</Link>
                 </li>
                 <li>
-                  <Link onClick={this.handleLogout}>Logout</Link>
+                  <Link to={{
+                    pathname: "/Logout",
+                    logoutUserCallback:       this.logoutUser,
+                    swapDisplayCallback:      this.swapContainerOnDisplay,
+                  }}>Logout</Link>
                 </li>
               </ul>
 
@@ -353,6 +371,8 @@ class App extends Component {
 
               <Route path="/Login" component={Login} />
 
+              <Route path="/Logout" component={Logout} />
+
               <Route path="/Profile" component={Profile} />
 
             </Switch>
@@ -362,6 +382,9 @@ class App extends Component {
   }
 
   handleLogout(){
+
+    this.hideCommentBox();
+
     if (this.state.currentUserId !== "") {
 
       this.setState( {currentUserId : ""} );
