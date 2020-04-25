@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import cross from '../assets/Cross-in-circle.png'
 
 //callbacks from props
 let lookupUser; 
@@ -30,6 +31,7 @@ export default class Comments extends Component {
         this.handleAddComment=this.handleAddComment.bind(this);
         this.handleDone=this.handleDone.bind(this);
         this.handleCommentChange=this.handleCommentChange.bind(this);
+        this.handleDeleteComment=this.handleDeleteComment.bind(this);
         this.displayRightCommentList=this.displayRightCommentList.bind(this);
         this.showModal=this.showModal.bind(this);
         this.hideModal=this.hideModal.bind(this);
@@ -43,7 +45,7 @@ export default class Comments extends Component {
         return (
             
             <div className="leftPhotoCard">
-                <img className="photoImg" src={imagePath} /> 
+                <img className="smallPhotoImg" src={imagePath} /> 
 
                 <pre className="photoDetail">Likes: {photoObj.likes}     Dislikes: {photoObj.dislikes}</pre>
                 <p className="photoDetail">by {user.name}</p>
@@ -75,15 +77,19 @@ export default class Comments extends Component {
         let comment=commentObj.comment;
 
         let userObj = lookupUser(commentObj.source); 
+        let userId = userObj.userId;
         if (userObj === null) {
             console.error(`Comment source not found -  user id: ${commentObj.source}`);
             return;
         }
 
         return (
-            <div className="commentLine">
-                <p> {userObj.name} date time </p>
-                <p className="commentText"> {comment} </p>
+            <div className="commentLineBox">
+                <div className="commentLine">
+                    <p> {userObj.name} date time </p>
+                    <p className="commentText"> {comment} </p>
+                </div>
+                <img className="crossImg" id={commentId} name={userId} src={cross} onClick={this.handleDeleteComment} />
             </div>
         )
     }
@@ -104,23 +110,52 @@ export default class Comments extends Component {
         )
     }
 
-    handleCommentChange(event) {
-
-        this.setState({newComment: event.target.value}); 
-    }
-
-    handleAddComment(event) {
-
+    checkLoginStatus() {
+        
         let currentUser=JSON.parse(getCurrentUser());
 
         if (Object.keys(currentUser).length === 0 &&
             currentUser.constructor === Object ) {    //empty object. no user logged in
 
-            document.getElementById("addCommentErrorMsg").innerHTML="Please login before commenting"
+            document.getElementById("addCommentErrorMsg").innerHTML="Please login before adding or deleting comment"
             
-            return;                     
+            return null;                     
         } else {
             document.getElementById("addCommentErrorMsg").innerHTML="";  //clear error msg
+        }
+
+        return currentUser;
+
+    }
+
+    handleCommentChange(event) {
+
+        this.setState({newComment: event.target.value}); 
+    }
+
+    handleDeleteComment(event) {
+
+        let currentUser = this.checkLoginStatus();
+        if (currentUser === null ) {
+            return;
+        }
+
+        let commentId = event.target.id;
+        let userId = event.target.name;        
+
+        //delete comment locally
+        let photoObj = JSON.parse(lookupPhoto(this.state.photoId));
+        let source = photoObj.source;
+
+
+
+    }
+
+    handleAddComment(event) {
+
+        let currentUser = this.checkLoginStatus();
+        if (currentUser === null ) {
+            return;
         }
 
         let newComment = this.state.newComment;
@@ -143,10 +178,8 @@ export default class Comments extends Component {
         //update local photo comment list
         let newPhotoObj = JSON.parse(lookupPhoto(this.state.photoId));;
         let comments=newPhotoObj.comments;
-        comments.push(newCommentObj.id);
+        comments.push(newCommentObj.comment);
         Object.assign( newPhotoObj, {comments : comments});
-
-        this.setState( {photoObj : newPhotoObj} )
         
         //update global photo state
         let newPhotoObjStr = JSON.stringify( newPhotoObj );

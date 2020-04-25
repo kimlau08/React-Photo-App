@@ -51,6 +51,7 @@ class App extends Component {
     this.getUsersStr=this.getUsersStr.bind(this);
     this.updatePhotoObj=this.updatePhotoObj.bind(this);
     this.lookupPhoto=this.lookupPhoto.bind(this);
+    this.findPhotoIdx=this.findPhotoIdx.bind(this);
     this.getCommentsStr=this.getCommentsStr.bind(this);
     this.getPhotosStr=this.getPhotosStr.bind(this);
     this.getUserPhotos=this.getUserPhotos.bind(this);
@@ -96,14 +97,19 @@ class App extends Component {
       return;
     }
 
+    let containerElem = document.getElementById("commentsContainer");
+    if (containerElem !== null) {
+        containerElem.style.zIndex = -100;
+    }
+
     let fromContainerId=this.state.containerOnDisplay;
     let fromContainerElem=null;
     if (fromContainerId !== ""  &&  fromContainerId !== toContainerId) {
         fromContainerElem = document.getElementById(fromContainerId);
-        if (fromContainerElem !== null) {
+      if (fromContainerElem !== null) {
 
-            document.getElementById(fromContainerId).style.display="none";
-        }
+          document.getElementById(fromContainerId).style.display="none";
+      }
     }
 
     //display to container
@@ -116,6 +122,7 @@ class App extends Component {
       
       //display to container
       document.getElementById(toContainerId).style.display="";
+      document.getElementById(toContainerId).style.position="relative";  //to ensure the position is set, and fix the problem of modal continues showing on other components
       this.setContainerOnDisplay(toContainerId); //save the to container 
 
     }
@@ -155,23 +162,40 @@ class App extends Component {
     }
   }
 
-
   addNewComment( newComment, photo, source ) {
 
     let id=this.allocCommentId();
 
+    //create new comment obj
     let newCommentObj = {
       "id": id,
       "comment": newComment,
       "photo":  photo,
       "source": source      
     }
+
+    //add to comment list
     let newCommentList = this.state.comments;
     newCommentList.push(newCommentObj);
     this.setState( { comments : newCommentList  });
 
-    return JSON.stringify(newCommentObj);
+    //add comment to photo
+    let photoStr = this.lookupPhoto( photo );
+    let photoObj = JSON.parse( photoStr );
+    photoObj.comments.push( newComment );
 
+    //update photo list
+    let photoIdx = this.findPhotoIdx( photo ) < 0 
+    if ( photoIdx < 0) {
+      console.error( `photo not found. idx; ${photoIdx}` )
+      return ""
+    }
+    let photoList = this.state.photos;
+    photoList.splice( photoIdx, 1, photoObj );
+
+    this.setState( {photos : photoList} );
+
+    return JSON.stringify(newCommentObj);
   }
 
   allocCommentId() {
@@ -199,7 +223,15 @@ class App extends Component {
 
   }
 
-
+  findPhotoIdx (photoId) {
+    
+    for (let i=0; i<this.state.photos.length; i++) {
+      if (this.state.photos[i].id===photoId) {
+        return i;
+      } 
+    }
+    return -1;
+  }
   lookupPhoto (photoId) {
 
     for (let i=0; i<this.state.photos.length; i++) {

@@ -1,4 +1,3 @@
-
 ul {
   list-style-type:none;
 }
@@ -49,7 +48,7 @@ textarea {
     font-style: italic;
   }
 
-  #homeContainer {
+  #homeContainer, #profileContainer, #loginContainer, #bookmarksContainer {
     background-color: white;
   }
 
@@ -107,11 +106,12 @@ textarea {
 
 #commentsContainer {
   position: absolute;
-  top: 250px;
-  left: 250px;
+  top: 200px;
+  left: 200px;
 
   width: 1000px;
-  height: 850px;
+  height: auto;
+
 
   border: solid 1px lightslategray;
   background-color: #E6DBDA;
@@ -126,9 +126,12 @@ textarea {
     width: 40%;
     height: auto;
     
-    text-align: center;
 /* border: solid 1px blueviolet; */
   }
+    .smallPhotoImg {
+      width: 80%;
+      height: auto;
+    }
 
   .rightCommentList {
     
@@ -142,13 +145,31 @@ textarea {
 
 /* border: solid 1px blueviolet; */
   }
-    .commentLine {
-      border: solid 1px lightslategray;
+
+    .commentLineBox {
+      display: flex;
+      flex-direction: row;
+
+      width: 100%;
+border: solid 1px purple;
     }
-      .commentText {
-        margin-top: -10px;
-        margin-left: 5px;
+      .commentLine {
+        border: solid 1px lightslategray;
+
+        width: 100%;
+border: solid 1px purple;
+
       }
+        .commentText {
+          margin-top: -10px;
+          margin-left: 5px;
+        }
+        .crossImg {
+          width: 25px;
+          height: 25px;
+
+          margin-top: 25px;
+        }
 
     .addCommentBox {
       margin-bottom: 20px;
