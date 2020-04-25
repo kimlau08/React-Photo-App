@@ -108,7 +108,7 @@ textarea {
 #commentsContainer {
   position: absolute;
   top: 250px;
-  left: 500px;
+  left: 250px;
 
   width: 1000px;
   height: 850px;
@@ -127,7 +127,7 @@ textarea {
     height: auto;
     
     text-align: center;
-border: solid 1px blueviolet;
+/* border: solid 1px blueviolet; */
   }
 
   .rightCommentList {
@@ -140,7 +140,7 @@ border: solid 1px blueviolet;
     flex-direction: column;
     justify-content: space-between;
 
-border: solid 1px blueviolet;
+/* border: solid 1px blueviolet; */
   }
     .commentLine {
       border: solid 1px lightslategray;
