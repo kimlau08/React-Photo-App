@@ -9,6 +9,7 @@ import Comments from './Comments';
 let swapDisplay;
 let lookupUser; 
 let addNewComment;
+let deleteComment;
 let getCurrentUser;
 let updatePhotoObj;
 let lookupPhoto;
@@ -98,6 +99,7 @@ export default class Home extends Component {
                             lookupUserCallback: lookupUser,
                             swapDisplayCallback: swapDisplay,
                             addNewCommentCallback: addNewComment,
+                            deleteCommentCallback: deleteComment,   
                             getCurrentUserCallback: getCurrentUser,
                             updatePhotoObjCallback: updatePhotoObj,
                             
@@ -138,6 +140,7 @@ export default class Home extends Component {
             swapDisplay = this.props.swapDisplayCallback;
             lookupUser = this.props.lookupUserCallback;
             addNewComment = this.props.addNewCommentCallback;
+            deleteComment = this.props.deleteCommentCallback;
             getCurrentUser = this.props.getCurrentUserCallback;
             updatePhotoObj = this.props.updatePhotoObjCallback;
             lookupPhoto = this.props.lookupPhotoCallback;
@@ -152,6 +155,7 @@ export default class Home extends Component {
             swapDisplay = this.props.location.swapDisplayCallback;
             lookupUser = this.props.location.lookupUserCallback;
             addNewComment = this.props.location.addNewCommentCallback;
+            deleteComment = this.props.location.deleteCommentCallback;
             getCurrentUser = this.props.location.getCurrentUserCallback;
             updatePhotoObj = this.props.location.updatePhotoObjCallback;
             lookupPhoto = this.props.location.lookupPhotoCallback;

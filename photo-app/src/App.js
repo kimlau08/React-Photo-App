@@ -37,6 +37,7 @@ class App extends Component {
     }
 
     this.lookupUser=this.lookupUser.bind(this);
+    this.lookupUserId=this.lookupUserId.bind(this);
     this.authenticateUser=this.authenticateUser.bind(this);
     this.logoutUser=this.logoutUser.bind(this);
     this.navBar=this.navBar.bind(this);
@@ -46,12 +47,15 @@ class App extends Component {
     this.setContainerOnDisplay=this.setContainerOnDisplay.bind(this);
     this.swapContainerOnDisplay=this.swapContainerOnDisplay.bind(this);
     this.addNewComment=this.addNewComment.bind(this);
+    this.deleteComment=this.deleteComment.bind(this);
     this.getCurrentUser=this.getCurrentUser.bind(this);
     this.setCurrentUser=this.setCurrentUser.bind(this);
     this.getUsersStr=this.getUsersStr.bind(this);
     this.updatePhotoObj=this.updatePhotoObj.bind(this);
     this.lookupPhoto=this.lookupPhoto.bind(this);
     this.findPhotoIdx=this.findPhotoIdx.bind(this);
+    this.findUserIdx=this.findUserIdx.bind(this);
+    this.findCommentIdx=this.findCommentIdx.bind(this);
     this.getCommentsStr=this.getCommentsStr.bind(this);
     this.getPhotosStr=this.getPhotosStr.bind(this);
     this.getUserPhotos=this.getUserPhotos.bind(this);
@@ -72,9 +76,14 @@ class App extends Component {
 
 
 
+  lookupUserId(userId) {
+
+    return this.state.users.find( u => u.userId === userId );  //return user object with matching userId
+
+  }
   lookupUser(id) {
     for (let i=0; i<this.state.users.length; i++) {
-      if (this.state.users[i].id===id) {
+      if (this.state.users[i].id.toString()===id.toString()) {
         return this.state.users[i] ;
       } 
     }
@@ -154,7 +163,7 @@ class App extends Component {
     let userCredential=JSON.parse(userCredentialStr);
     let userObj={};
     for (let i=0; i<this.state.users.length; i++) {
-      if (this.state.users[i].userId===userCredential.username) {
+      if (this.state.users[i].userId.toString()===userCredential.username.toString()) {
         userObj=this.state.users[i] ;
         break;
       } 
@@ -176,6 +185,37 @@ class App extends Component {
     }
   }
 
+  deleteComment(commentId, photoId) {
+
+    //delete comment in list
+    let commentList = this.state.comments;
+    let commentIdx = commentList.findIndex( c => c.id.toString() === commentId.toString() );
+
+    if ( commentList[commentIdx].source.toString() !== this.state.currentUser.id.toString() ) {
+      alert ( `The source of the comment is another user` )
+
+      return;
+    }
+
+    commentList.splice(commentIdx, 1);
+
+    this.setState( {comments: commentList} );
+
+    //locate photo from list
+    let photoList = this.state.photos;
+    let photoIdx = photoList.findIndex( p => p.id.toString() === photoId.toString() );
+
+    //delete photo comment list
+    let photoObj = this.state.photos[photoIdx];
+    let idx = photoObj.comments.findIndex( c => c.toString() === commentId.toString() );
+    photoObj.comments.splice(idx, 1)
+
+    //update photo in list
+    photoList.splice(photoIdx, 1, photoObj);
+
+    this.setState( {photos : photoList} );
+  }
+
   addNewComment( newComment, photo, source ) {
 
     let id=this.allocCommentId();
@@ -194,17 +234,17 @@ class App extends Component {
     this.setState( { comments : newCommentList  });
 
     //add comment to photo
-    let photoStr = this.lookupPhoto( photo );
-    let photoObj = JSON.parse( photoStr );
+    let photoList = this.state.photos;
+    let photoIdx = photoList.findIndex( p => p.id.toString() === photo.toString() );
+    if (photoIdx < 0) {
+      console.error( `photo not found. id: ${photo}` )
+      return ""
+    }
+
+    let photoObj = this.state.photos[photoIdx];
     photoObj.comments.push( newComment );
 
     //update photo list
-    let photoIdx = this.findPhotoIdx( photo ) < 0 
-    if ( photoIdx < 0) {
-      console.error( `photo not found. idx; ${photoIdx}` )
-      return ""
-    }
-    let photoList = this.state.photos;
     photoList.splice( photoIdx, 1, photoObj );
 
     this.setState( {photos : photoList} );
@@ -236,20 +276,32 @@ class App extends Component {
     this.setState( { currentUserId: userId  } );
 
   }
-
-  findPhotoIdx (photoId) {
-    
-    for (let i=0; i<this.state.photos.length; i++) {
-      if (this.state.photos[i].id===photoId) {
+  
+  findIdx( array, id) {
+    for (let i=0; i<array.length; i++) {
+      if (array[i].id.toString()===id.toString()) {
         return i;
       } 
     }
     return -1;
   }
+
+  findPhotoIdx (photoId) {
+
+    return this.findIdx(this.state.photos, photoId)
+  }
+  findUserIdx (userId) {
+    
+    return this.findIdx(this.state.users, userId)
+  }
+  findCommentIdx (commentId) {
+
+    return this.findIdx(this.state.comments, commentId)
+  }
   lookupPhoto (photoId) {
 
     for (let i=0; i<this.state.photos.length; i++) {
-      if (this.state.photos[i].id===photoId) {
+      if (this.state.photos[i].id.toString()===photoId.toString()) {
         return JSON.stringify(this.state.photos[i]);
       } 
     }
@@ -312,6 +364,7 @@ class App extends Component {
                       updateUserDataCallback:  this.updateUserData,
                       swapDisplayCallback:     this.swapContainerOnDisplay,
                       addNewCommentCallback:   this.addNewComment,
+                      deleteCommentCallback:   this.deleteComment,
                       getCurrentUserCallback:  this.getCurrentUser,
                       updatePhotoObjCallback:  this.updatePhotoObj,
                       lookupPhotoCallback:     this.lookupPhoto,
@@ -419,6 +472,7 @@ class App extends Component {
           updateUserDataCallback = {this.updateUserData}
           swapDisplayCallback = {this.swapContainerOnDisplay}
           addNewCommentCallback = {this.addNewComment}
+          deleteCommentCallback =  {this.deleteComment}
           getCurrentUserCallback = {this.getCurrentUser}
           updatePhotoObjCallback = {this.updatePhotoObj}
           lookupPhotoCallback = {this.lookupPhoto}

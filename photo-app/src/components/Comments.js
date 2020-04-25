@@ -5,6 +5,7 @@ import cross from '../assets/Cross-in-circle.png'
 //callbacks from props
 let lookupUser; 
 let addNewComment;
+let deleteComment;
 let getCurrentUser;
 let updatePhotoObj;
 let lookupPhoto;
@@ -92,7 +93,7 @@ export default class Comments extends Component {
                     <p> {userObj.name} date time </p>
                     <p className="commentText"> {comment} </p>
                 </div>
-                <img className="crossImg" id={commentId} name={userId} src={cross} onClick={this.handleDeleteComment} />
+                <img className="crossImg" id={commentId} src={cross} onClick={this.handleDeleteComment} />
             </div>
         )
     }
@@ -144,13 +145,9 @@ export default class Comments extends Component {
         }
 
         let commentId = event.target.id;
-        let userId = event.target.name;        
+        let user = event.target.name;        
 
-        //delete comment locally
-        let photoObj = JSON.parse(lookupPhoto(this.state.photoId));
-        let source = photoObj.source;
-
-
+        deleteComment(commentId, this.state.photoId);
 
     }
 
@@ -229,6 +226,7 @@ export default class Comments extends Component {
 
         lookupUser = this.props.location.lookupUserCallback;
         addNewComment = this.props.location.addNewCommentCallback;
+        deleteComment = this.props.location.deleteCommentCallback;
         getCurrentUser = this.props.location.getCurrentUserCallback;
         updatePhotoObj = this.props.location.updatePhotoObjCallback;
         lookupPhoto = this.props.location.lookupPhotoCallback;
