@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import cross from '../assets/Cross-in-circle.png'
+import '../style/App.css'
 
 //callbacks from props
 let lookupUser; 

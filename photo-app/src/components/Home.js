@@ -8,6 +8,8 @@ import heartImg from '../assets/Heart.png';
 import crossImg from '../assets/Cross-in-circle.png'
 
 import Comments from './Comments';
+import '../style/App.css'
+
 
 //callbacks from props
 let swapDisplay;

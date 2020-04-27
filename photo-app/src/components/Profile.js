@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import '../style/App.css'
 
 import {avatarImg} from './ImageDB';
 import PhotoGrid from './PhotoGrid';

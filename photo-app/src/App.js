@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import './App.css';
+import './style/App.css';
 import { Switch, Route, Link, BrowserRouter as Router } from "react-router-dom";
 
 import photoImages from './components/ImageDB';
@@ -39,6 +39,8 @@ class App extends Component {
       newPhotoId: 2500,   //id of new photos start from 2500
       newCommentId: 4500, //id of new comments start from 4500
 
+      images: photoImages,
+      
       currentUser: {},
       currentUserId: "",
 
@@ -302,6 +304,8 @@ class App extends Component {
     userList.splice(userIdx, 1);
   
     this.setState(  {users: userList}  );
+
+    this.logoutUser();
   }
 
 

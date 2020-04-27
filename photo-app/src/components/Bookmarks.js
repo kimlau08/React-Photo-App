@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../style/App.css'
 
 import photoImages from './ImageDB';
 import PhotoGrid from './PhotoGrid';
