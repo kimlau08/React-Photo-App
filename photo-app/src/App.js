@@ -17,6 +17,15 @@ import { connect } from 'react-redux';
 import authenticateVisitor from './actions/index.js'; 
 
 
+const result = {
+  success: 1,
+  notLoggedIn: -1,
+  alreadyLiked: -2,
+  alreadyDisliked: -3,
+  alreadyBookmarked: -4,
+  notPhotoOwner: -5
+} 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -50,8 +59,10 @@ class App extends Component {
     this.deleteComment=this.deleteComment.bind(this);
     this.getCurrentUser=this.getCurrentUser.bind(this);
     this.setCurrentUser=this.setCurrentUser.bind(this);
+    this.deleteCurrentUser=this.deleteCurrentUser.bind(this);
     this.getUsersStr=this.getUsersStr.bind(this);
     this.updatePhotoObj=this.updatePhotoObj.bind(this);
+    this.updatePhoto=this.updatePhoto.bind(this);
     this.lookupPhoto=this.lookupPhoto.bind(this);
     this.findPhotoIdx=this.findPhotoIdx.bind(this);
     this.findUserIdx=this.findUserIdx.bind(this);
@@ -60,6 +71,14 @@ class App extends Component {
     this.getPhotosStr=this.getPhotosStr.bind(this);
     this.getUserPhotos=this.getUserPhotos.bind(this);
 
+    this.addPhotoLike=this.addPhotoLike.bind(this);
+    this.addPhotoDislike=this.addPhotoDislike.bind(this);
+    this.addPhotoBookmark=this.addPhotoBookmark.bind(this);
+    this.deletePhoto=this.deletePhoto.bind(this);
+    this.removeAllLikes=this.removeAllLikes.bind(this);
+    this.removeAllDislikes=this.removeAllDislikes.bind(this);
+    this.removeAllBookmarks=this.removeAllBookmarks.bind(this);
+
     this.allocCommentId=this.allocCommentId.bind(this);
     this.allocPhotoId=this.allocPhotoId.bind(this);
 
@@ -67,14 +86,10 @@ class App extends Component {
   }
 
 
-
-
   dispatchAuthentication = (userCredentialStr, userListStr, setCurrentUserCallback) => {
     
     this.props.dispatch(authenticateVisitor(userCredentialStr, userListStr, setCurrentUserCallback));
   }
-
-
 
   lookupUserId(userId) {
 
@@ -99,6 +114,194 @@ class App extends Component {
     if (containerElem !== null) {
         containerElem.style.zIndex = -100;
     }
+  }
+
+  userDidLike(user, photoId) {
+    return ( user.likePhoto.findIndex( id => id.toString() === photoId.toString() ) >= 0 ); 
+  }
+  userDidDislike(user, photoId) {
+    return ( user.dislikePhoto.findIndex( id => id.toString() === photoId.toString() ) >= 0 ); 
+  }
+  userDidBookmark(user, photoId) {
+    return ( user.bookmarkedPhoto.findIndex( id => id.toString() === photoId.toString() ) >= 0 );
+  }
+  isPhotoOwner(user, photoId) {
+    let photoObj=this.state.photos.find( p => p.id.toString() === photoId.toString() );
+    return ( photoObj.owner.toString() === user.id.toString() )
+  }
+  removeDislike(user, photoId) {
+    let photoIdx = user.dislikePhoto.findIndex(  id => id.toString() === photoId.toString() );
+    if (photoIdx < 0) {
+      return; //photo not on list
+    }
+    user.dislikePhoto.splice(photoIdx, 1);  //delete from dislike list
+    return user
+  }
+  removeBookmark(user, photoId) {
+    let photoIdx = user.bookmarkedPhoto.findIndex(  id => id.toString() === photoId.toString() );
+    if (photoIdx < 0) {
+      return; //photo not on list
+    }
+    user.bookmarkedPhoto.splice(photoIdx, 1);  //delete from dislike list
+    return user
+
+  }
+  removeLike(user, photoId) {
+    let photoIdx = user.likePhoto.findIndex( id => id.toString() === photoId.toString() );
+    if (photoIdx < 0) {
+      return; //photo not on list
+    }
+    user.likePhoto.splice(photoIdx, 1); //delete from like list
+    return user
+  }
+  removeAllLikes(photoId) {
+    let userList=this.state.users;
+    userList.map(  u => this.removeLike(u, photoId) );
+    this.setState(  {users : userList} );
+  }
+  removeAllDislikes(photoId) {
+    let userList=this.state.users;
+    userList.map(  u => this.removeDislike(u, photoId) );
+    this.setState(  {users : userList} );
+  }
+  removeAllBookmarks(photoId) {
+    let userList=this.state.users;
+    userList.map(  u => this.removeBookmark(u, photoId) );
+    this.setState(  {users : userList} );
+  }
+
+  addPhotoLike(photoId) {
+
+    let user = this.state.currentUser;
+    if (JSON.stringify(user) === JSON.stringify({}) ) {
+      return result.notLoggedIn;  //user not logged in. no current user
+    }
+
+    if (this.userDidLike(user, photoId)) {
+      return result.alreadyLiked; //use already like
+    } 
+
+    if (this.userDidDislike(user, photoId)) {      
+      //decrement dislike, before incrementing like
+      this.updatePhoto(photoId, this.decrementDislikes);
+
+      user = this.removeDislike(user, photoId);  //remove from user's dislike list
+   }
+
+    this.updatePhoto(photoId, this.incrementLikes);
+
+    //append like to user and update list
+    user.likePhoto.push(Number(photoId));
+
+    //update user list
+    let userList = this.state.users;
+    let userIdx = userList.findIndex( u => u.id.toString() === user.id.toString() );
+    userList.splice(userIdx, 1, user);
+
+    return result.success;  //successful update
+
+  }
+
+  addPhotoDislike(photoId) {
+
+    let user = this.state.currentUser;
+    if (JSON.stringify(user) === JSON.stringify({}) ) {
+      return result.notLoggedIn;  
+    }
+
+    if (this.userDidDislike(user, photoId)) {
+      return result.alreadyDisliked; //use already like
+    }
+
+    if (this.userDidLike(user, photoId)) {
+      //decrement like, before incrementing dislike
+      this.updatePhoto(photoId, this.decrementLikes);
+
+      user=this.removeLike(user, photoId); //remove from user's like list
+    } 
+
+    this.updatePhoto(photoId, this.incrementDislikes);
+
+    //append disklike to user and update list
+    user.dislikePhoto.push(Number(photoId));
+
+    //update user list
+    let userList = this.state.users;
+    let userIdx = userList.findIndex( u => u.id.toString() === user.id.toString() );
+    userList.splice(userIdx, 1, user);
+
+    return result.success;  //successful update
+
+  }
+  addPhotoBookmark(photoId) {
+
+    let user = this.state.currentUser;
+    if (JSON.stringify(user) === JSON.stringify({}) ) {
+      return result.notLoggedIn;  //user not logged in. no current user
+    }
+
+    if (this.userDidBookmark(user, photoId)) {
+      return result.alreadyBookmarked; //use already like
+    } 
+
+    //append like to user and update list
+    user.bookmarkedPhoto.push(Number(photoId));
+
+    //update user list
+    let userList = this.state.users;
+    let userIdx = userList.findIndex( u => u.id.toString() === user.id.toString() );
+    userList.splice(userIdx, 1, user);
+
+    return result.success;  //successful update
+
+  }
+  deletePhoto(photoId) {
+
+    let user = this.state.currentUser;
+    if (JSON.stringify(user) === JSON.stringify({}) ) {
+      return result.notLoggedIn;  //user not logged in. no current user
+    }
+
+    if ( ! this.isPhotoOwner(user, photoId) )  {
+      return result.notPhotoOwner; //user does not own photo
+    }
+
+    //delete photo from users' likes
+    this.removeAllLikes(photoId);
+    //delete photo from users' dislikes
+    this.removeAllDislikes(photoId);
+    //delete photo from users' bookmarks
+    this.removeAllBookmarks(photoId);
+
+    //delete photo from list
+    let photoList=this.state.photos;
+    let photoIdx=photoList.findIndex( p => p.id.toString() === photoId.toString() )
+    photoList.splice(photoIdx, 1);
+
+    this.setState(  {photos: photoList} );
+
+  }
+
+  deleteCurrentUser() {
+
+    let user = this.state.currentUser;
+    let userIdx = this.state.users.findIndex( u => u.id === user.id );
+    if (userIdx < 0) {
+      return;   //no such user
+    }
+    
+    //delete all photos owned by user.
+    let photoList=this.state.photos;
+    photoList.map( p => { if (p.owner.toString() === user.id.toString() ) {
+                             this.deletePhoto(p.id);
+                          } } );
+
+
+    //delete the user.
+    let userList = this.state.users;
+    userList.splice(userIdx, 1);
+  
+    this.setState(  {users: userList}  );
   }
 
 
@@ -183,6 +386,46 @@ class App extends Component {
     } else {
       return false;
     }
+  }
+
+  incrementLikes( photoObj ) {
+    let p = photoObj;
+    p.likes += 1;
+    return p;
+  }
+  decrementLikes( photoObj ) {
+    let p = photoObj;
+    p.likes -= 1;
+    return p;
+  }
+  incrementDislikes( photoObj ) {
+    let p = photoObj;
+    p.dislikes += 1;
+    return p;
+  }
+  decrementDislikes( photoObj ) {
+    let p = photoObj;
+    p.dislikes -= 1;
+    return p;
+  }
+
+  updatePhoto(photoId, updateOpr) {
+
+    //find the photo object
+    let photoList = this.state.photos;
+    let photoIdx = photoList.findIndex( p => p.id.toString() === photoId.toString() )
+    if (photoIdx < 0) {
+      return;   //no such photo
+    }
+    let photoObj = photoList[photoIdx];
+
+    //apply update. can be incr or decr
+    photoObj = updateOpr(photoObj);
+
+    //update photo in the list
+    photoList.splice(photoIdx, 1, photoObj);
+    this.setState( {photos : photoList} )
+
   }
 
   deleteComment(commentId, photoId) {
@@ -330,20 +573,17 @@ class App extends Component {
 
   updatePhotoObj (photoObjStr) {
 
+    //update photo object
     let photoObj = JSON.parse(photoObjStr);
-
     let newPhotoList = this.state.photos;
-    for (let i=0; i<newPhotoList.length; i++) {
-      if (photoObj.id === newPhotoList[i].id) {
-
-        //update photo object
-        newPhotoList.splice( i, 1, photoObj);
-
-        this.setState( {photos : newPhotoList} )
-
-        break;
-      }
+    let idx = newPhotoList.findIndex( p => p.id.toString() === photoObj.id.toString() )
+    if (idx < 0) {
+      return;  //no such photo
     }
+    newPhotoList.splice( idx, 1, photoObj);
+
+    this.setState( {photos : newPhotoList} )
+
   }
 
   navBar() {
@@ -364,6 +604,10 @@ class App extends Component {
                       updateUserDataCallback:  this.updateUserData,
                       swapDisplayCallback:     this.swapContainerOnDisplay,
                       addNewCommentCallback:   this.addNewComment,
+                      addPhotoLikeCallback:    this.addPhotoLike,
+                      addPhotoDislikeCallback: this.addPhotoDislike,
+                      addPhotoBookmarkCallback: this.addPhotoBookmark,
+                      deletePhotoCallback:     this.deletePhoto,
                       deleteCommentCallback:   this.deleteComment,
                       getCurrentUserCallback:  this.getCurrentUser,
                       updatePhotoObjCallback:  this.updatePhotoObj,
@@ -391,7 +635,7 @@ class App extends Component {
 
                       lookupUserCallback:      this.lookupUser,
                       swapDisplayCallback:     this.swapContainerOnDisplay,
-                      getCurrentUserCallback:  this.getCurrentUser,
+                      getCurrentUserCallback:  this.getCurrentUser,                      deleteUserCallback:      this.deleteCurrentUser,
                       lookupPhotoCallback:     this.lookupPhoto,
                       getUserPhotosCallback:   this.getUserPhotos
                   }}>Profile</Link>
@@ -472,7 +716,12 @@ class App extends Component {
           updateUserDataCallback = {this.updateUserData}
           swapDisplayCallback = {this.swapContainerOnDisplay}
           addNewCommentCallback = {this.addNewComment}
+          addPhotoLikeCallback  =  {this.addPhotoLike}
+          addPhotoDislikeCallback = {this.addPhotoDislike}
+          addPhotoBookmarkCallback= {this.addPhotoBookmark}
+          deletePhotoCallback=      {this.deletePhoto}
           deleteCommentCallback =  {this.deleteComment}
+          deleteUserCallback = {this.deleteCurrentUser}
           getCurrentUserCallback = {this.getCurrentUser}
           updatePhotoObjCallback = {this.updatePhotoObj}
           lookupPhotoCallback = {this.lookupPhoto}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import {avatarImg} from './ImageDB';
 import PhotoGrid from './PhotoGrid';
@@ -17,19 +18,38 @@ export default class Profile extends Component {
         super(props);
 
         this.state = {
-            profileImages : avatarImg
+            profileImages : avatarImg,
+
+            redirectToHome: false        
         }
 
         this.displayUserInfo=this.displayUserInfo.bind(this);
+        this.handleDeleteProfile=this.handleDeleteProfile.bind(this);
     }
 
     displayUserInfo(userObj) {
         return (
             <React.Fragment>
                 <img className="userImg" src={this.state.profileImages[userObj.profileImgIdx]} /> 
-                <h1 style={{color:'grey'}}><br />name: {userObj.name}</h1>
+                <div>
+                    <h1 style={{color:'grey'}}><br />name: {userObj.name}</h1>
+                    <button className="deleteProfBtn" onClick={this.handleDeleteProfile}>Delete Profile</button>
+                </div>
             </React.Fragment>
         )
+    }
+
+    handleDeleteProfile(event) {
+        
+        if (event.target === undefined) {
+            return;
+        }
+
+        if (window.confirm("Deleting user profile. Please confirm.")) {
+
+            this.props.location.deleteUserCallback();
+
+        }
     }
 
     render () {
