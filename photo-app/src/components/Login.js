@@ -35,6 +35,7 @@ export default class Login extends Component {
             return;
         }
 
+        //gather form field and values and put in user info object
         let userObj={};
         for (let i=0; i<event.target.elements.length; i++) {
             let elem=event.target.elements[i];
@@ -50,10 +51,11 @@ export default class Login extends Component {
 
         event.preventDefault();
 
+        //authenticate user
         let userStr=JSON.stringify(userObj)
         let authResult=this.props.location.authenticateUserCallBack(userStr);
 
-        if (authResult) {
+        if (authResult) {   //user authenticated successfully
             //Redirect back to root (App component)
             this.setState( { redirectToHome: true } ); 
 

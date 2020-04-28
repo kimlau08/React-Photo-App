@@ -199,7 +199,7 @@ Login.js
 			
 		+ handleSubmitform
 		
-			+ gather form field and values and put user info object
+			+ gather form field and values and put in user info object
 
 			+ authenticate user.
 			
