@@ -245,7 +245,7 @@ export default class App extends Component {
     return result.success;  //successful update
 
   }
-  deletePhoto(photoId) {
+  deletePhoto(photoId) {    //handle delete photo action
 
     let user = this.state.currentUser;
     if (JSON.stringify(user) === JSON.stringify({}) ) {
