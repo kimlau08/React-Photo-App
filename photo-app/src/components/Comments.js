@@ -143,7 +143,7 @@ export default class Comments extends Component {
 
         let currentUser = this.checkLoginStatus();
         if (currentUser === null ) {
-            return;
+            return;         //no user logged in
         }
 
         let commentId = event.target.id;
@@ -192,9 +192,9 @@ export default class Comments extends Component {
 
         return (
             <div className="rightCommentList">
-
+                {/*  //display comments for the photo */}
                 <div className="commentListBox">
-                    { photoObj.comments.map(this.displayComment) }  //display comments for the photo
+                    { photoObj.comments.map(this.displayComment) } 
                 </div>
                 {/* display input box and add comment button */}
                 { this.displayAddCommentBox() }
