@@ -437,7 +437,7 @@ export default class App extends Component {
     let photoList = this.state.photos;
     let photoIdx = photoList.findIndex( p => p.id.toString() === photoId.toString() );
 
-    //delete photo comment list
+    //delete comment from photo's comment list
     let photoObj = this.state.photos[photoIdx];
     let idx = photoObj.comments.findIndex( c => c.toString() === commentId.toString() );
     photoObj.comments.splice(idx, 1)
