@@ -484,12 +484,12 @@ export default class App extends Component {
     return JSON.stringify(newCommentObj);
   }
 
-  allocCommentId() {
+  allocCommentId() {  //assign new comment id
     let id=this.state.newCommentId;
     this.state.newCommentId += 1;
     return id;
   }
-  allocPhotoId() {
+  allocPhotoId() {  // assign new photo id
     let id=this.state.newPhotoId;
     this.state.newCommentId += 1;
     return id;
