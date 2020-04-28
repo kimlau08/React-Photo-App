@@ -207,5 +207,27 @@ Login.js
 			
 				else show Home component
 				
+Profile.js
+	+ main functions
+		+ render
+			
+			+ sort user's photo in descending order of likes
+
+			+ display user info
+
+			+ invoke PhotoGrid to display photos
+			
+			
+		+ displayUserInfo
 		
-		
+			+ display user's avatar image and user name
+			
+			+ display delete profile button
+			
+PhotoGrid.js
+	+ main functions
+		+ render
+	
+			+ sort photos in descending order of likes 
+			
+			+ display photo and info
