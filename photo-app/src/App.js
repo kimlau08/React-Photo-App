@@ -144,12 +144,12 @@ export default class App extends Component {
     user.likePhoto.splice(photoIdx, 1); //delete from like list
     return user
   }
-  removeAllLikes(photoId) {
+  removeAllLikes(photoId) {       //remove the photo from all user's like list
     let userList=this.state.users;
     userList.map(  u => this.removeLike(u, photoId) );
     this.setState(  {users : userList} );
   }
-  removeAllDislikes(photoId) {
+  removeAllDislikes(photoId) {    //remove the photo from all user's dislike list
     let userList=this.state.users;
     userList.map(  u => this.removeDislike(u, photoId) );
     this.setState(  {users : userList} );
