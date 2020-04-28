@@ -43,12 +43,13 @@ export default class Comments extends Component {
 
         let photoObj=JSON.parse(lookupPhoto(photoId));
 
-        let user=lookupUser(photoObj.owner);
+        let user=lookupUser(photoObj.owner);   //lookup owner user of photo
         if (user === null ) {
             console.error( `cannot find user: id ${photoObj.owner}` );
         }
         return (
             
+            // display photo image and likes, dislikes data
             <div className="leftPhotoCard">
                 <img className="smallPhotoImg" src={imagePath} /> 
 
