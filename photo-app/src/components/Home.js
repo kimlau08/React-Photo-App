@@ -93,11 +93,11 @@ export default class Home extends Component {
         switch ( addPhotoBookmark(event.target.id) ) {
 
             case result.notLoggedIn:
-                alert("Please login first");
+                alert("Please login first");     //user is not logged in
                 break;
 
             case result.alreadyBookmarked:
-                alert("You've already bookmarked before");
+                alert("You've already bookmarked before");   //user already bookmarked the photo before
                 break;
 
             default:
