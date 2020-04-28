@@ -154,7 +154,7 @@ export default class App extends Component {
     userList.map(  u => this.removeDislike(u, photoId) );
     this.setState(  {users : userList} );
   }
-  removeAllBookmarks(photoId) {  
+  removeAllBookmarks(photoId) {    //remove the photo from all user's bookmark list
     let userList=this.state.users;
     userList.map(  u => this.removeBookmark(u, photoId) );
     this.setState(  {users : userList} );
