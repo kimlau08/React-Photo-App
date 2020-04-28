@@ -349,6 +349,8 @@ export default class App extends Component {
 
   authenticateUser(userCredentialStr) {
 
+    //check user credential against all users
+
     let userCredential=JSON.parse(userCredentialStr);
     let userObj={};
     for (let i=0; i<this.state.users.length; i++) {
@@ -362,6 +364,7 @@ export default class App extends Component {
       return false;
     }
 
+    //a match is found
     if (userObj.password===userCredential.password) {
 
       //update current user
