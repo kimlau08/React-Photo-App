@@ -447,7 +447,7 @@ export default class App extends Component {
     this.setState( {photos : photoList} );
   }
 
-  addNewComment( newComment, photo, source ) {
+  addNewComment( newComment, photo, source ) {     //add a new comment to photo
 
     let id=this.allocCommentId();
 
