@@ -55,7 +55,6 @@ export default class App extends Component {
     this.addNewComment=this.addNewComment.bind(this);
     this.deleteComment=this.deleteComment.bind(this);
     this.getCurrentUser=this.getCurrentUser.bind(this);
-    this.setCurrentUser=this.setCurrentUser.bind(this);
     this.deleteCurrentUser=this.deleteCurrentUser.bind(this);
     this.getUsersStr=this.getUsersStr.bind(this);
     this.updatePhotoObj=this.updatePhotoObj.bind(this);
@@ -496,17 +495,7 @@ export default class App extends Component {
   }
 
   getCurrentUser() {
-    return JSON.stringify(this.state.currentUser);
-  }
-
-  setCurrentUser(userStr) {
-
-    let userObj = JSON.parse(userStr);
-    let userId = userObj.userId;
-
-    this.setState( { currentUser: userObj  } )
-    this.setState( { currentUserId: userId  } );
-
+    return JSON.stringify(this.state.currentUser);  //return logged in user
   }
   
   findIdx( array, id) {
