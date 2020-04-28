@@ -109,7 +109,7 @@ export default class App extends Component {
   userDidLike(user, photoId) {  //return true if user already liked the photo before
     return ( user.likePhoto.findIndex( id => id.toString() === photoId.toString() ) >= 0 ); 
   }
-  userDidDislike(user, photoId) {
+  userDidDislike(user, photoId) { //return true if user already disliked the photo before
     return ( user.dislikePhoto.findIndex( id => id.toString() === photoId.toString() ) >= 0 ); 
   }
   userDidBookmark(user, photoId) {
