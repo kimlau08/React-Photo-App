@@ -386,7 +386,7 @@ export default class App extends Component {
     p.likes -= 1;
     return p;
   }
-  incrementDislikes( photoObj ) {
+  incrementDislikes( photoObj ) {     //incr dislikes count for photo
     let p = photoObj;
     p.dislikes += 1;
     return p;
