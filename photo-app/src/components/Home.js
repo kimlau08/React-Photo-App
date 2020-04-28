@@ -78,11 +78,11 @@ export default class Home extends Component {
         switch ( addPhotoDislike(event.target.id) ) {
 
             case result.notLoggedIn:
-                alert("Please login first");
+                alert("Please login first");   //user is not logged in
                 break;
 
             case result.alreadyDisliked:
-                alert("You've already disliked before");
+                alert("You've already disliked before");   //user already disliked the photo before
                 break;
 
             default:
