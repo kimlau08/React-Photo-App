@@ -194,9 +194,9 @@ export default class Comments extends Component {
             <div className="rightCommentList">
 
                 <div className="commentListBox">
-                    { photoObj.comments.map(this.displayComment) }
+                    { photoObj.comments.map(this.displayComment) }  //display comments for the photo
                 </div>
-
+                {/* display input box and add comment button */}
                 { this.displayAddCommentBox() }
 
             </div>
