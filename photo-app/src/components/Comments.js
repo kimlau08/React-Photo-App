@@ -104,6 +104,7 @@ export default class Comments extends Component {
 
     displayAddCommentBox() {
 
+        //display input text box, add comment button, and done button
         return (
             <div className="addCommentBox">
 
