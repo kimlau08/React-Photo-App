@@ -160,7 +160,7 @@ export default class App extends Component {
     this.setState(  {users : userList} );
   }
 
-  addPhotoLike(photoId) {
+  addPhotoLike(photoId) {          //handle thumbup action
 
     let user = this.state.currentUser;
     if (JSON.stringify(user) === JSON.stringify({}) ) {
