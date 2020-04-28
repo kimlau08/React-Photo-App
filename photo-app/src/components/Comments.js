@@ -126,6 +126,7 @@ export default class Comments extends Component {
         if (Object.keys(currentUser).length === 0 &&
             currentUser.constructor === Object ) {    //empty object. no user logged in
 
+            // display error msg
             document.getElementById("addCommentErrorMsg").innerHTML="Please login before adding or deleting comment"
             
             return null;                     
