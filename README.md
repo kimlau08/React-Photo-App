@@ -15,8 +15,8 @@
 ### Profile
 ![wireframe](./wireframes/Profile.png)
 # 
-# Featuers
-## Attempt using Redux for maintaining logged in user id
+# Features
+## Technology: SCSS for styling
 ## Logging in/out for a user
 ## Thick red border indicates liked by logged in user
 ## Thick grey border idnicates disliked by logged in user 
