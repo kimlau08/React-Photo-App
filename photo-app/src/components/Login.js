@@ -63,6 +63,7 @@ export default class Login extends Component {
             this.props.location.swapDisplayCallback("homeContainer", this.props);
         } 
 
+        //login error
         document.getElementById('authErrorMsg').innerHTML="Incorrect username or password."
         
     }
