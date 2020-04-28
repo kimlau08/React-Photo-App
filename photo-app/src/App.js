@@ -416,7 +416,7 @@ export default class App extends Component {
 
   }
 
-  deleteComment(commentId, photoId) {
+  deleteComment(commentId, photoId) {  //delete comment from photo
 
     //delete comment in list
     let commentList = this.state.comments;
