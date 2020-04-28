@@ -12,11 +12,6 @@ import Login from './components/Login';
 import Logout from './components/Logout'
 import Profile from './components/Profile';
 
-import { connect } from 'react-redux';
-
-import authenticateVisitor from './actions/index.js'; 
-
-
 const result = {
   success: 1,
   notLoggedIn: -1,
@@ -26,7 +21,7 @@ const result = {
   notPhotoOwner: -5
 } 
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
 
@@ -84,14 +79,8 @@ class App extends Component {
     this.allocCommentId=this.allocCommentId.bind(this);
     this.allocPhotoId=this.allocPhotoId.bind(this);
 
-    this.dispatchAuthentication=this.dispatchAuthentication.bind(this);
   }
 
-
-  dispatchAuthentication = (userCredentialStr, userListStr, setCurrentUserCallback) => {
-    
-    this.props.dispatch(authenticateVisitor(userCredentialStr, userListStr, setCurrentUserCallback));
-  }
 
   lookupUserId(userId) {
 
@@ -360,12 +349,6 @@ class App extends Component {
 
 
   authenticateUser(userCredentialStr) {
-
-
-    /**************Redux dispatch to authenticate************* */
-    let userListStr = JSON.stringify(this.state.users)
-    this.dispatchAuthentication(userCredentialStr, userListStr, this.setCurrentUser);
-
 
     let userCredential=JSON.parse(userCredentialStr);
     let userObj={};
@@ -736,16 +719,4 @@ class App extends Component {
       </div>
   )}
 }
-
-
-
-function mapStateToProps(state) {
-  return {
-
-    loggedInUserId:  state.loggedInUserId,
-    loggedInUserObjStr: state.loggedInUserObjStr
-  };
-}
-
-export default connect(mapStateToProps)(App);
 
