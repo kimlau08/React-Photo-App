@@ -1,9 +1,11 @@
 ul {
-  list-style-type:none;
+  list-style-type: none;
 }
+
 a:link {
   text-decoration: none;
 }
+
 a:active {
   font-size: 20px;
   color: cadetblue;
@@ -13,402 +15,225 @@ textarea {
   resize: none;
 }
 
-
 /******************************************************************
 *   Menu and Logo line
 ******************************************************************/
-
 .menu {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-/* border: solid 1px lime; */
+  /* border: solid 1px lime; */
 }
-  .menuBar {
-    width: 400px;
+.menu .menuBar {
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  font-weight: bold;
+  font-style: italic;
+  /* border: solid 1px red; */
+}
+.menu .currentUserId {
+  width: 100px;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: bold;
+}
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+.logoLine {
+  text-align: center;
+  font-size: 36px;
+  font-style: italic;
+}
 
-    font-weight: bold;
-    font-style: italic;
-/* border: solid 1px red; */
-  }
-  .currentUserId {
-    width: 100px;
-    font-size: 18px;
-    font-style: italic;
-    font-weight: bold;
-  }
-
-  .logoLine {
-    text-align: center;
-    font-size: 36px;
-    font-style: italic;
-  }
-
-  #homeContainer, #profileContainer, #loginContainer, #bookmarksContainer {
-    background-color: white;
-  }
-
+#homeContainer, #profileContainer, #loginContainer, #bookmarksContainer {
+  background-color: white;
+}
 
 /******************************************************************
 *   Profile styling
 ******************************************************************/
-  .userInfoBox {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.userInfoBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 250px;
+}
+.userInfoBox .userImg {
+  margin-right: 100px;
+  width: 200px;
+  height: 200px;
+}
 
-    height: 250px;
-  }
-    .userImg {
-      margin-right: 100px;
-      width: 200px;
-      height: 200px;
-    }
-  
+.deleteProfBtn {
+  border: solid 1px;
+  border-radius: 5px;
+}
+
 /******************************************************************
 *   Photo list styling
 ******************************************************************/
-
-  
-  .photoCard {
+.photoCard {
   display: inline-block;
   margin-left: 20px;
   width: 400px;
   height: auto;
   margin-bottom: 20px;
-  }  
-    .photoImg {
-      width: 80%;
-      height: 400px;
-      /* border style assigned based on user like dislike in Javascript code */
-    }
-    
-    .photoDetail, .photoOwner {
-      width: 100%;
-      font-size: 14px;
-      text-align: left;
+}
+.photoCard .photoImg {
+  width: 80%;
+  height: 400px;
+  /* border style assigned based on user like dislike in Javascript code */
+}
+.photoCard .photoDetail, .photoCard .photoOwner {
+  width: 100%;
+  font-size: 14px;
+  text-align: left;
+  font-style: italic;
+  font-size: 18px;
+}
 
-      font-style: italic;
-      font-size: 18px;
-    }
-
-    .buttonRow {
-      display: flex;
-      flex-direction: row;
-
-      width: 100%;
-      margin-bottom: 20px;
-    }
-      .photoBtn {
-        width: 25px;
-        height: 25px;
-
-        margin-right: 10px;
-      }
-
-  
-
+.buttonRow {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.buttonRow .photoBtn {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
 
 /******************************************************************
 *   Comments component
 ******************************************************************/
-
 #commentsContainer {
   position: absolute;
   top: 200px;
   left: 200px;
-
   width: 1000px;
   height: auto;
-
-
   border: solid 1px lightslategray;
   background-color: #E6DBDA;
-
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
-  .leftPhotoCard {
-    
-    margin-top: 50px;
-    width: 40%;
-    height: auto;
-    
-  }
-    .smallPhotoImg {
-      width: 80%;
-      height: auto;
-    }
-
-  .rightCommentList {
-    
-    margin-top: 50px;
-    width: 50%;
-    height: auto;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-/* border: solid 1px blueviolet; */
-  }
-
-    .commentLineBox {
-      display: flex;
-      flex-direction: row;
-
-      width: 100%;
-/* border: solid 1px purple; */
-    }
-      .commentLine {
-        border: solid 1px lightslategray;
-
-        width: 100%;
-/* border: solid 1px purple; */
-
-      }
-        .commentText {
-          margin-top: -10px;
-          margin-left: 5px;
-        }
-        .crossImg {
-          width: 25px;
-          height: 25px;
-
-          margin-top: 25px;
-        }
-
-    .addCommentBox {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-      #addCommentErrorMsg {
-        color: red;
-
-      }
-      .commentButton {
-        margin: 10px 15px;
-        border: solid 1px lightslategray;
-        border-radius: 10px;
-
-        width: 150px;
-        height: 30px;
-
-        font-size: 18px;
-        text-align: center;
-      }
-  
+#commentsContainer .leftPhotoCard {
+  margin-top: 50px;
+  width: 40%;
+  height: auto;
+}
+#commentsContainer .leftPhotoCard .smallPhotoImg {
+  width: 80%;
+  height: auto;
+}
+#commentsContainer .rightCommentList {
+  margin-top: 50px;
+  width: 50%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* border: solid 1px blueviolet; */
+}
+#commentsContainer .commentLineBox {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  /* border: solid 1px purple; */
+}
+#commentsContainer .commentLineBox .commentLine {
+  border: solid 1px lightslategray;
+  width: 100%;
+  /* border: solid 1px purple; */
+}
+#commentsContainer .commentLineBox .commentLine .commentText {
+  margin-top: -10px;
+  margin-left: 5px;
+}
+#commentsContainer .commentLineBox .crossImg {
+  width: 25px;
+  height: 25px;
+  margin-top: 25px;
+}
+#commentsContainer .addCommentBox {
+  margin-bottom: 20px;
+  text-align: center;
+}
+#commentsContainer .addCommentBox #addCommentErrorMsg {
+  color: red;
+}
+#commentsContainer .addCommentBox .commentButton {
+  margin: 10px 15px;
+  border: solid 1px lightslategray;
+  border-radius: 10px;
+  width: 150px;
+  height: 30px;
+  font-size: 18px;
+  text-align: center;
+}
 
 /******************************************************************
 *   Login form
 ******************************************************************/
-
 .LoginFormContainer {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-
   width: 600px;
   height: 500px;
   border: solid 1px lightgrey;
   border-radius: 10px;
-  
 }
-  .loginTitle {
-    grid-column: 2/3;
-    grid-row: 1;
-    align-self: center;
-
-    margin-top: 20px;
-
-    font-size: 18px;
-    font-weight: bold;
-
-    text-align: center;
-    width: 100%;
-  }
-  .userIdInput {
-    grid-column: 2/3;
-    grid-row: 2;
-    align-self: center;
-
-    margin-top: 20px;
-  }
-  .passwordInput {
-    grid-column: 2/3;
-    grid-row: 3;
-    align-self: center;
-
-    margin-top: 20px;
-  }
-  #authErrorMsg {
-    grid-column: 2/3;
-    grid-row: 4;
-    align-self: center;
-
-    margin-top: 20px;
-    color: red;
-  }
-
-  .loginButton {
-    grid-column: 2/3;
-    grid-row: 5;
-    align-self: center;
-
-    border: solid 1px lightslategray;
-    border-radius: 10px;
-
-    width: 100px;
-    height: 30px;
-
-    font-size: 18px;
-    text-align: center;
-    margin-left: 60px;
-  }
-  .textInput, .textAreaInput, .imgURLInput {
-    border: solid 1px lightgrey;
-    border-radius: 5px;
-    font-size: 16px;
-    padding: 8px;
-  }
-
-
-
-/******************************************************************
-*
-*   Wine form styling
-*
-******************************************************************/
-
-.windFormContainer {
-
-position: absolute;
-top: 120px;
-left: 300px;
-
-display: flex;
-flex-direction: row;
-width: 900px;
-height: auto;
-
-background-color: #E6DBDA;
-border: solid white;
-}
-
-.wineImgBox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-  width: 40%;
-  height: auto;
+.LoginFormContainer .loginTitle {
+  grid-column: 2/3;
+  grid-row: 1;
+  align-self: center;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
   text-align: center;
-
-  border: solid 1px white;
+  width: 100%;
 }
-  .wineFormTitle {
-    width: 100%;
-    color: purple;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  .largeWineImg {
-    width: 300px;
-    border-radius: 5px;
-  }
-
-  .deleteButton, .createButton {
-    margin-top: 30px;
-    padding: 4px;
-    border: solid 1px #E6DBDA;
-    border-radius: 5px;
-
-    font-size: 18px;
-    font-weight: bold;
-    border: solid 1px lightgray;
-    color: lightslategray;
-  }
-
-
-.wineFormBox {
-    width: 60%;
-    text-align: center;
-
-    border: solid white;  
-    color: purple;
+.LoginFormContainer .userIdInput {
+  grid-column: 2/3;
+  grid-row: 2;
+  align-self: center;
+  margin-top: 20px;
 }
-  
-  .inputContainer {
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+.LoginFormContainer .passwordInput {
+  grid-column: 2/3;
+  grid-row: 3;
+  align-self: center;
+  margin-top: 20px;
+}
+.LoginFormContainer #authErrorMsg {
+  grid-column: 2/3;
+  grid-row: 4;
+  align-self: center;
+  margin-top: 20px;
+  color: red;
+}
+.LoginFormContainer .loginButton {
+  grid-column: 2/3;
+  grid-row: 5;
+  align-self: center;
+  border: solid 1px lightslategray;
+  border-radius: 10px;
+  width: 100px;
+  height: 30px;
+  font-size: 18px;
+  text-align: center;
+  margin-left: 60px;
+}
+.LoginFormContainer .textInput, .LoginFormContainer .textAreaInput, .LoginFormContainer .imgURLInput {
+  border: solid 1px lightgrey;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 8px;
+}
 
-    width: 100%;
-  }
-
-  
-    /* Column layout */
-    .nameInputBox, .grapesInputBox, .regionInputBox {
-
-      grid-column: 1/3;
-      font-size: 14px;
-      align-self: center;
-    }
-    .yearInputBox, .countryInputBox, .priceInputBox {
-
-      grid-column: 3/5;
-      font-size: 14px;
-      align-self: center;
-    }
-    .descInputBox, .imgPathInputBox {
-
-      grid-column: 1/5;
-      font-size: 14px;
-      align-self: center;
-    }
-
-    /* Row layout */
-    .nameInputBox, .yearInputBox {
-      grid-row: 1;
-      margin: 20px;
-    }
-    .grapesInputBox, .countryInputBox {
-      grid-row: 2;
-    }
-    .regionInputBox, .priceInputBox {
-      grid-row: 3;
-    }
-    .descInputBox {
-      grid-row: 4;
-    }
-    .imgPathInputBox {
-      grid-row: 5;
-    }
-
-      /* .textInput, .textAreaInput, .imgURLInput {
-        border: solid 1px #E6DBDA;
-        border-radius: 5px;
-        font-size: 14px;
-        padding: 8px;
-      } */
-
-
-    .createButtonBox {
-      grid-column: 1/5;
-      grid-row: 6;
-
-      margin: 20px;
-
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-
-    }
-
+/*# sourceMappingURL=App.css.map */
