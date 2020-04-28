@@ -106,7 +106,7 @@ export default class Comments extends Component {
 
                 <p id="addCommentErrorMsg"></p>
 
-                <textarea className="textAreaInput" name="description" rows="3" cols="40"  placeholder="add comment here" onChange={this.handleCommentChange} />
+                <textarea className="textAreaInput" name="description" rows="3" cols="40"  placeholder="add comment here" onChange={this.handleCommentChange} /><br />
 
                 <button className="commentButton" onClick={this.handleAddComment}>Add Comment</button>
                 <button className="commentButton" onClick={this.handleDone}>Done</button>
