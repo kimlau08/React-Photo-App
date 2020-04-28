@@ -151,3 +151,61 @@ Bookmarks.js
 			+ sort photos in descending order of likes
 			
 			+ invoke PhotoGrid component to display photos
+			
+			
+Comments.js
+		+ render
+		
+			+ display left photo card calling displayLeftPhotoCard
+			
+			+ display right comment list calling displayRightCommentList
+			
+		+ displayLeftPhotoCard
+		
+			+ lookup owner user of photo
+			
+			+ display photo image and likes, dislikes data
+			
+		+ displayRightCommentList
+		
+			+ display comments for the photo
+			
+			+ display add comment buttons
+			
+		+ handleAddComment
+		
+			+ get current user.
+		
+			+ lookup photo 
+			
+			+ add new comment to photo's comment list
+			
+			+ update photo 
+			
+		+ handleDeleteComment
+		
+			+ get current user.
+			
+			+ delete comment
+
+
+Login.js
+	+ main functions
+		+ render 
+		
+			+ display input fields: username, password
+			
+			+ display Login button
+			
+		+ handleSubmitform
+		
+			+ gather form field and values and put user info object
+
+			+ authenticate user.
+			
+			+ if login error display error msg
+			
+				else show Home component
+				
+		
+		
