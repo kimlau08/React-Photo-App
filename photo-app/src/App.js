@@ -223,7 +223,7 @@ export default class App extends Component {
     return result.success;  //successful update
 
   }
-  addPhotoBookmark(photoId) {
+  addPhotoBookmark(photoId) {    //handle bookmark (heart) action
 
     let user = this.state.currentUser;
     if (JSON.stringify(user) === JSON.stringify({}) ) {
