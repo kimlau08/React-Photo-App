@@ -1,0 +1,153 @@
+
+App.js - display nav bar and handle loading from and updating of data source
+
+	+ main data structure
+		+ images - list of photo images
+		+ photos - list of photo info
+		+ users - list of users
+		+ comments - list of comments
+		+ currentUserObj - logged in user
+
+	+ main functions
+		+ render 
+			+ display nar bar
+		
+		+ addPhotoLike
+			+ if no user is logged on, return error
+
+			+ if user like the photo before, return error
+			
+			+ if user dislike the photo before
+			
+				+ decrement dislikes for the photo
+				
+				+ update user's dislikes list
+				
+			+ increment likes for the photo
+		
+			+ append photo to user's like list
+			
+			+ update user in this.state
+			
+		+ addPhotoDislike
+			+ if no user is logged on, return error
+			
+			+ if user dislikes the photo before, return error
+			
+			+ if user likes the photo before
+			
+				+ decrement likes for the photo
+				
+				+ update user's likes list
+				
+			+ decrement likes for the photo
+			
+			+ append photo to user's like list
+			
+			+ update user in this.state
+			
+		+ addPhotomark
+			+ if no user is logged on, return error
+			
+			+ if user already bookmarked the photo, return error
+			
+			+ append photo to user's bookmarked
+			
+			+ update user in this.state
+			
+		+ deletePhoto
+			+ if no user is logged on, return error
+			
+			+ if user is not photo owner, return error
+			
+			+ remove all likes for the photo from all users
+			
+			+ remove all dislikes for the photo from all users
+
+			+ remove all bookmarks for the photo from all users
+			
+			+ update photo in this.state
+			
+		+ deleteCurrentUser
+			+ delete all photos owned by the logged in user
+			
+			+ delete user from this.state
+			
+		+ authenticateUser
+			+ check user credential against all users 
+			
+			+ if a match is found
+			
+				+ update currentUser
+				
+		+ updatePhoto
+			+ apply update operator to a photo (increment or decrement)
+			
+			+ update photo in this.state
+	
+		+ deleteComment
+			+ delete comment from this.state
+			
+			+ delete comment from photo's comment list
+			
+			+ update photo in this.state
+			
+		+ addNewComment
+			+ add comment to this.state
+			
+			+ add comment to photo's comment list
+
+
+EntityDB.js - data source for user list, comments list, photo list.
+
+Home.js - home page component. display all photos.
+	+ main functions
+	
+		+ render 
+			+ display photo and info by calling displayPhotoAndInfo
+					
+			+ define route to Comment component
+			
+		+ displayPhotoAndInfo
+			+ lookup photo info by id
+			
+			+ display photo, like number, dislike number
+			
+			+ display buttons for like(thumbup), dislike(thumbdown), bookmark(heart), and delete(circle with a cross)
+	
+	
+		+ handleThumbup 
+			+ call addPhotoLike 
+			
+			+ alert if user is not logged in
+			
+			+ alert if user already liked the photo before
+			
+		+ handleThumpdown
+			+ call addPhotoDislike
+			
+			+ alert if user is not logged in
+			
+			+ alert if user already disliked the photo before
+			
+		+ handleBookmark
+			+ call addPhotoBookmark 
+			
+			+ alert if user is not logged in
+			
+			+ alert if user already bookmarked the photo before
+
+		+ handleDeletePhoto
+			+ call deletePhoto
+			
+			+ alert if user is not logged in
+			
+			+ alert if user is not photo owner
+			
+
+Bookmarks.js 
+		+ render 
+		
+			+ sort photos in descending order of likes
+			
+			+ invoke PhotoGrid component to display photos
