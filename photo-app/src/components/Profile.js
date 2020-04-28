@@ -102,7 +102,7 @@ export default class Profile extends Component {
 
                 <ul className="userPhotoBox">
                     <li>
-
+                        {/* invoke PhotoGrid to display photos */}
                         <PhotoGrid photoListStr={userPhotoListStr} 
                                    lookupUserCallback={lookupUser}
                                    lookupPhotoCallback={lookupPhoto}
