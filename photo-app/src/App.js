@@ -197,7 +197,7 @@ export default class App extends Component {
 
     let user = this.state.currentUser;
     if (JSON.stringify(user) === JSON.stringify({}) ) {
-      return result.notLoggedIn;  
+      return result.notLoggedIn;    //no user is logged on
     }
 
     if (this.userDidDislike(user, photoId)) {
@@ -206,12 +206,12 @@ export default class App extends Component {
 
     if (this.userDidLike(user, photoId)) {
       //decrement like, before incrementing dislike
-      this.updatePhoto(photoId, this.decrementLikes);
+      this.updatePhoto(photoId, this.decrementLikes); 
 
       user=this.removeLike(user, photoId); //remove from user's like list
     } 
 
-    this.updatePhoto(photoId, this.incrementDislikes);
+    this.updatePhoto(photoId, this.incrementDislikes);   //increment user's dislikes list
 
     //append disklike to user and update list
     user.dislikePhoto.push(Number(photoId));
