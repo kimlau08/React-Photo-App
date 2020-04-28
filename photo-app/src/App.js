@@ -381,7 +381,7 @@ export default class App extends Component {
     p.likes += 1;
     return p;
   }
-  decrementLikes( photoObj ) {
+  decrementLikes( photoObj ) {   //decr likes count for photo
     let p = photoObj;
     p.likes -= 1;
     return p;
