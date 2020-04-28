@@ -26,17 +26,17 @@ export default class App extends Component {
     super(props);
 
     this.state={
-      images: photoImages,
-      photos: photoData,
-      users: userData,
-      comments: commentData,
+      images: photoImages,   //list of photo images
+      photos: photoData,     //list of photo info
+      users: userData,       //list of users
+      comments: commentData,  //list of comments
 
       newPhotoId: 2500,   //id of new photos start from 2500
       newCommentId: 4500, //id of new comments start from 4500
 
       images: photoImages,
       
-      currentUser: {},
+      currentUser: {},      //logged in user
       currentUserId: "",
 
       containerOnDisplay: "homeContainer"
