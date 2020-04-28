@@ -75,6 +75,7 @@ export default class Comments extends Component {
 
     displayComment(commentId) {
 
+        //lookup comment from list
         let commentObj = this.lookupComment(commentId); 
         if (commentObj === null) {
             console.error(`Comment not found - comment id: ${commentId}`);
@@ -82,6 +83,7 @@ export default class Comments extends Component {
         }
         let comment=commentObj.comment;
 
+        //lookup owern user from list
         let userObj = lookupUser(commentObj.source); 
         let userId = userObj.userId;
         if (userObj === null) {
@@ -192,7 +194,8 @@ export default class Comments extends Component {
 
         return (
             <div className="rightCommentList">
-                {/*  //display comments for the photo */}
+                
+                {/*  display comments for the photo */}
                 <div className="commentListBox">
                     { photoObj.comments.map(this.displayComment) } 
                 </div>
