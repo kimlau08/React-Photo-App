@@ -119,7 +119,7 @@ export default class App extends Component {
     let photoObj=this.state.photos.find( p => p.id.toString() === photoId.toString() );
     return ( photoObj.owner.toString() === user.id.toString() )
   }
-  removeDislike(user, photoId) {
+  removeDislike(user, photoId) {   //remove the photo from user's dislike list
     let photoIdx = user.dislikePhoto.findIndex(  id => id.toString() === photoId.toString() );
     if (photoIdx < 0) {
       return; //photo not on list
