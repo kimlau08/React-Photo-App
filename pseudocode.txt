@@ -109,7 +109,7 @@ Home.js - home page component. display all photos.
 			+ define route to Comment component
 			
 		+ displayPhotoAndInfo
-			+ lookup photo info by id
+			+ lookup owner user by id
 			
 			+ display photo, like number, dislike number
 			
