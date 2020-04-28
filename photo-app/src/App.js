@@ -347,7 +347,6 @@ export default class App extends Component {
     }
   }
 
-
   authenticateUser(userCredentialStr) {
 
     let userCredential=JSON.parse(userCredentialStr);
