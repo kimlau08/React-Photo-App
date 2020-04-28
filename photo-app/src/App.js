@@ -192,7 +192,7 @@ export default class App extends Component {
 
   }
 
-  addPhotoDislike(photoId) {
+  addPhotoDislike(photoId) {    //handle thumbdown action
 
     let user = this.state.currentUser;
     if (JSON.stringify(user) === JSON.stringify({}) ) {
