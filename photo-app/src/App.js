@@ -115,7 +115,7 @@ export default class App extends Component {
   userDidBookmark(user, photoId) { //return true if user already bookmarked the photo before
     return ( user.bookmarkedPhoto.findIndex( id => id.toString() === photoId.toString() ) >= 0 );
   }
-  isPhotoOwner(user, photoId) {
+  isPhotoOwner(user, photoId) {   //return true if user is the owner of the photo
     let photoObj=this.state.photos.find( p => p.id.toString() === photoId.toString() );
     return ( photoObj.owner.toString() === user.id.toString() )
   }
