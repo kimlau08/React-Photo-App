@@ -346,7 +346,7 @@ export default class App extends Component {
     }
   }
 
-  authenticateUser(userCredentialStr) {
+  authenticateUser(userCredentialStr) {  
 
     //check user credential against all users
 
@@ -376,7 +376,7 @@ export default class App extends Component {
     }
   }
 
-  incrementLikes( photoObj ) {
+  incrementLikes( photoObj ) {    //incr likes count for photo
     let p = photoObj;
     p.likes += 1;
     return p;
