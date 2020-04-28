@@ -109,11 +109,11 @@ export default class Home extends Component {
         switch ( deletePhoto(event.target.id) ) {
 
             case result.notLoggedIn:
-                alert("Please login first");
-                break;
+                alert("Please login first");   //user is not logged in
+                break; 
 
             case result.notPhotoOwner:
-                alert("You can only delete your own photos");
+                alert("You can only delete your own photos");   // user is not photo owner
                 break;
 
             default:
