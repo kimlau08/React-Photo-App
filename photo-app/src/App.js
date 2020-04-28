@@ -179,7 +179,7 @@ export default class App extends Component {
       user = this.removeDislike(user, photoId);  //remove from user's dislike list
    }
 
-    this.updatePhoto(photoId, this.incrementLikes);
+    this.updatePhoto(photoId, this.incrementLikes);   //increment likes for the photo
 
     //append like to user and update list
     user.likePhoto.push(Number(photoId));

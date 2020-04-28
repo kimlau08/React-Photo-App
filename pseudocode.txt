@@ -231,3 +231,4 @@ PhotoGrid.js
 			+ sort photos in descending order of likes 
 			
 			+ display photo and info
+		
