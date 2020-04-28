@@ -62,11 +62,11 @@ export default class Home extends Component {
         switch ( addPhotoLike(event.target.id) ) {
 
             case result.notLoggedIn:
-                alert("Please login first");
+                alert("Please login first");   //user is not logged in
                 break;
 
             case result.alreadyLiked:
-                alert("You've already liked before");
+                alert("You've already liked before");   //user already liked the photo before
                 break;
 
             default:
