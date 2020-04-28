@@ -164,6 +164,7 @@ export default class Home extends Component {
     
         let imagePath=this.state.images[photoObj.imageIdx];
     
+        //lookup owner user by id
         let user=lookupUser(photoObj.owner);     //lookupUser is passed in object parm
         if (user === null) {
             console.error(`Photo ${photoObj.id} has unknown user with id ${photoObj.owner}`);
