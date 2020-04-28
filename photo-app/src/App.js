@@ -272,7 +272,7 @@ export default class App extends Component {
 
   }
 
-  deleteCurrentUser() {
+  deleteCurrentUser() {   //delete all data of logged in user
 
     let user = this.state.currentUser;
     let userIdx = this.state.users.findIndex( u => u.id === user.id );
