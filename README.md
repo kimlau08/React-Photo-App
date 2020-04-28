@@ -17,10 +17,16 @@
 # 
 # Features
 ## Technology: SCSS for styling
+## Photo grid is displayed in descending sort order of likes.
 ## Logging in/out for a user
+## Home page shows photo grid.
 ## Thick red border indicates liked by logged in user
 ## Thick grey border idnicates disliked by logged in user 
-## Clicking on photo brings up comments.
+### Clicking on photo brings up comments.
+### Clicking on thumbup "likes" the photo above.
+### Clicking on thumbdown "dislikes" the photo above.
+### Clicking on hearts bookmark the photo above.
+### Clicking on circle with a cross deletes the photo above.
 ### User can add comments for a photo.
 ### Only logged in user can add comments
 ### Bookmarks shows the photos bookmarked by the user
