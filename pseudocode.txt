@@ -46,7 +46,7 @@ App.js - display nav bar and handle loading from and updating of data source
 			
 			+ update user in this.state
 			
-		+ addPhotomark
+		+ addPhotoBookmark
 			+ if no user is logged on, return error
 			
 			+ if user already bookmarked the photo, return error
