@@ -391,13 +391,13 @@ export default class App extends Component {
     p.dislikes += 1;
     return p;
   }
-  decrementDislikes( photoObj ) {
+  decrementDislikes( photoObj ) {     //decr dislikes count for photo
     let p = photoObj;
     p.dislikes -= 1;
     return p;
   }
 
-  updatePhoto(photoId, updateOpr) {
+  updatePhoto(photoId, updateOpr) {   //apply update operator to specified photo (incr or decr)
 
     //find the photo object
     let photoList = this.state.photos;
