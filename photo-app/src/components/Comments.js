@@ -157,7 +157,7 @@ export default class Comments extends Component {
 
         let currentUser = this.checkLoginStatus();
         if (currentUser === null ) {
-            return;
+            return;     //no user logged in
         }
 
         let newComment = this.state.newComment;
