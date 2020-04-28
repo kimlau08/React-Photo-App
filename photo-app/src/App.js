@@ -127,7 +127,7 @@ export default class App extends Component {
     user.dislikePhoto.splice(photoIdx, 1);  //delete from dislike list
     return user
   }
-  removeBookmark(user, photoId) {
+  removeBookmark(user, photoId) {  //remove the photo from user's bookmark list
     let photoIdx = user.bookmarkedPhoto.findIndex(  id => id.toString() === photoId.toString() );
     if (photoIdx < 0) {
       return; //photo not on list
@@ -136,7 +136,7 @@ export default class App extends Component {
     return user
 
   }
-  removeLike(user, photoId) {
+  removeLike(user, photoId) {     //remove the photo from user's like list
     let photoIdx = user.likePhoto.findIndex( id => id.toString() === photoId.toString() );
     if (photoIdx < 0) {
       return; //photo not on list
